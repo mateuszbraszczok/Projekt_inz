@@ -1,23 +1,12 @@
 {% extends 'main.html' %}
-
 {% block content %}
 
 Hello, world. You're at the projekt index.<br>
 <h1> poziom pomiary </h1>
 {% for list_element in latest_measurements_list %}
-    {{float(list_element.poziom)}}
+    {{ list_element.timestamp }} --> 
+    {{ list_element.poziom|floatformat:2 }}
     <br>
 {% endfor %}
-<a href='natlenienie'> natlenienie </a>
 
 {% endblock %}
-
-
-
-
-
-
-<!-- output = ""
-    latest_measurements_list = Measurements.objects.order_by('-timestamp')[:10]
-    output += ',</br> '.join([ "{}     <b>{:.3f}</b>".format(str(q.timestamp),float(q.poziom))   for q in latest_measurements_list])
-    return HttpResponse(output) -->

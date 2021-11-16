@@ -1,21 +1,22 @@
 {% load static %}
 
-<html>
-<head>
-    <link
-    rel="stylesheet"
-    type="text/css"
-    href="{% static 'projekt/css/bootstrap.css' %}"
-    />
-</head>
-<body>
-    <div class="basic">
-        {% include "utils/topbar.html" %}    
-    </div>
-    
-    {% block content %}
+<!doctype html> 
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'projekt/css/bootstrap.css' %}" />
 
-    {% endblock %}
-
-</body>
+        <title>Projekt inżynierski</title>
+    </head>
+    <body>
+        <div class="basic">
+            {% include "utils/topbar.html" %}    
+        </div>
+        
+        <div class="container mt-3">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
 </html>
