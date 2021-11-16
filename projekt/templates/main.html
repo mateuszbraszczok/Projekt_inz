@@ -1,0 +1,21 @@
+{% load static %}
+
+<html>
+<head>
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'projekt/css/bootstrap.css' %}"
+    />
+</head>
+<body>
+    <div class="basic">
+        {% include "utils/topbar.html" %}    
+    </div>
+    
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+</html>
