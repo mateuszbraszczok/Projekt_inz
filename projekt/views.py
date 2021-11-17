@@ -21,9 +21,7 @@ def natlenienie(request):
     latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold)
     x = [x.timestamp for x in latest_measurements_list]
     y = [y.natlenienie for y in latest_measurements_list]
-    print(y)
-    print(x)
-    chart = get_plot(x, y)
+    chart = get_plot(x, y, "Wykres natlenienia")
 
     return render(request,"natlenienie.html", {'latest_measurements_list': latest_measurements_list, 'chart': chart})
 
@@ -32,7 +30,5 @@ def natlenienie(request):
 def schemat(request):
     latest_measurements_list = Measurements.objects.latest('id')
     poziom = latest_measurements_list.poziom
-    print("hi")
-    print(poziom)
     natlenienie = latest_measurements_list.natlenienie
     return render(request,"schemat.html", {'poziom': poziom, 'natlenienie': natlenienie})

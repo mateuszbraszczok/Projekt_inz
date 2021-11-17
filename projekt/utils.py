@@ -19,15 +19,17 @@ def get_graph():
     return graph
 
 
-def get_plot(x,y):
+def get_plot(x, y, title):
     plt.switch_backend('AGG')
     plt.figure(figsize=(10,5))
-    plt.title('sales of items')
+    plt.title(title)
     plt.plot(x,y)
     plt.xticks(rotation=45)
     plt.xlabel('time')
     plt.ylabel('value')
     plt.grid()
     plt.tight_layout()
+    ax = plt.gca()
+    ax.set_ylim([0, 10])
     graph = get_graph()
     return graph
