@@ -1,16 +1,29 @@
 {% extends 'main.html' %}
 {% block content %}
+    <div id="natlenienie">
+        Hello, world. You're at the projekt index.<br>
+        {% if chart %}
+            <img src="data:image/png;base64, {{ chart|safe}}"/>
+        {% endif %}
+        <h1> natlenienie pomiary </h1>
+        {% for list_element in latest_measurements_list %}
+            {{ list_element.timestamp|date:"d-m-Y G:i:s" }} --> 
+            {{ list_element.natlenienie|floatformat:2 }}
+            <br>
+        {% endfor %}
+    </div>
 
-    Hello, world. You're at the projekt index.<br>
-    {% if chart %}
-        <img src="data:image/png;base64, {{ chart|safe}}"/>
-    {% endif %}
-    <h1> natlenienie pomiary </h1>
-    {% for list_element in latest_measurements_list %}
-        {{ list_element.timestamp }} --> 
-        {{ list_element.natlenienie|floatformat:2 }}
-        <br>
-    {% endfor %}
-    
+{% endblock %}
 
+
+{% block scripts %}
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    var seconds = 3; 
+    window.setInterval('refresh()', seconds * 1000);
+        function refresh()
+        { 
+            $( "#natlenienie" ).load(window.location.href + " #natlenienie" );
+        }     
+    </script>  
 {% endblock %}

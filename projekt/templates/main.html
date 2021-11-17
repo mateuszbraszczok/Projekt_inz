@@ -1,13 +1,16 @@
-{% load static %}
-
-<!doctype html> 
+<!DOCTYPE html> 
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'projekt/css/bootstrap.css' %}" />
 
         <title>Projekt inżynierski</title>
+        {% block css %}
+        {% endblock css %}
+        {% block scripts %}
+        {% endblock scripts %}
     </head>
     <body>
         <div class="basic">
@@ -18,5 +21,7 @@
             {% block content %}
             {% endblock %}
         </div>
+
+    
     </body>
 </html>

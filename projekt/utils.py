@@ -25,8 +25,9 @@ def get_plot(x,y):
     plt.title('sales of items')
     plt.plot(x,y)
     plt.xticks(rotation=45)
-    plt.xlabel('item')
-    plt.ylabel('price')
+    plt.xlabel('time')
+    plt.ylabel('value')
+    plt.grid()
     plt.tight_layout()
     graph = get_graph()
     return graph

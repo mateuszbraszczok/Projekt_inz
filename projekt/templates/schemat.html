@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% block content %}
+    <div id="schemat">
+        <div id="natlenienie">
+            {{natlenienie|floatformat:2}}
+        </div>
+        <div id="poziom">
+            {{poziom|floatformat:2}}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block css %}
+    <style>
+        #schemat{
+            position:relative;
+            background-image:url('/static/projekt/img/schemat.png');
+            height:600px;
+            width:882px;
+        }
+        #natlenienie{
+            position:absolute;
+            left:425px;
+            top:470px;
+            width:882px;
+        }
+        #poziom{
+            position:absolute;
+            left:150px;
+            top:290px;
+            width:882px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block scripts %}
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    var seconds = 3; 
+    window.setInterval('refresh()', seconds * 1000);
+        function refresh()
+        { 
+            $( "#schemat" ).load(window.location.href + " #schemat" );
+            {% comment %} $( "#poziom" ).load(window.location.href + " #poziom" ); {% endcomment %}
+        }     
+    </script>  
+{% endblock %}
