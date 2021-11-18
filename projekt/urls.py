@@ -7,4 +7,5 @@ urlpatterns = [
     path('poziom/', views.poziom, name='poziom'),
     path('natlenienie/', views.natlenienie, name='natlenienie'),
     path('schemat/', views.schemat, name='schemat'),
+    path('data/<str:variable>/minutes/<int:minutes>', views.dane, name='dane'),
 ]

@@ -5,7 +5,7 @@
         {% if chart %}
             <img src="data:image/png;base64, {{ chart|safe}}"/>
         {% endif %}
-        <h1> natlenienie pomiary </h1>
+        <h1>  {{ type }} pomiary </h1>
         {% for list_element in latest_measurements_list %}
             {{ list_element.timestamp|date:"d-m-Y G:i:s" }} --> 
             {{ list_element.natlenienie|floatformat:2 }}
