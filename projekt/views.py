@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from datetime import datetime, timedelta
-
+from django.db.models import Avg, Max, Min
 from .models import Measurements
 
 from .utils import get_plot
@@ -28,13 +28,15 @@ def natlenienie(request):
 def dane(request, variable, minutes):
     possibleVariables = ['natlenienie', 'poziom']
     if variable in possibleVariables:
+        possibleVariables.remove(variable)
         time_threshold = datetime.now() - timedelta(minutes=minutes)
-        latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold)
+        latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold).order_by("-id")
+        infoList = latest_measurements_list.aggregate(Avg(variable), Max(variable), Min(variable))
         toExecute = "[y."+ variable +" for y in latest_measurements_list]"
         x = [x.timestamp for x in latest_measurements_list]
         y = eval(toExecute)
         chart = get_plot(x, y, variable)
-        returnDict = {'latest_measurements_list': latest_measurements_list, 'chart': chart, 'type': variable, 'possibleVariables': possibleVariables, 'minute': minutes}
+        returnDict = {'latest_measurements_list': latest_measurements_list, 'chart': chart, 'type': variable, 'possibleVariables': possibleVariables, 'minute': minutes, 'infoList': infoList}
         return render(request,"natlenienie.html", returnDict )
     else:
         return HttpResponseNotFound("Page not found") 

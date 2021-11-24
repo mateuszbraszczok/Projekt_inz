@@ -38,9 +38,9 @@
 
 
 {% block scripts %}
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  {% comment %} <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> {% endcomment %}
     <script type="text/javascript">
-    var seconds = 3; 
+    var seconds = 1; 
     window.setInterval('refresh()', seconds * 1000);
         function refresh()
         { 

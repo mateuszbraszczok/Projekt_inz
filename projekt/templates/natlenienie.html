@@ -1,41 +1,71 @@
 {% extends 'main.html' %}
-{% block content %}
-    <div>  
-        <form method=post action="/projekt/viewChange/">
+{% block leftbar %}
+<div>  
+    <form method="post" action="/projekt/viewChange/">
         {% csrf_token %}
-        <select id="variable" name="variable">
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Select Chart</label>
+            <select class="form-control" id="variable" name="variable">
+            <option value={{type}} selected>{{type}}</option>
             {% for variable in possibleVariables %}
                 <option value={{variable}}>{{variable}}</option>
             {% endfor %}
-        </select>
-        <input type="number" id="minutes" name="minutes" min="1" max="60" value={{ minute }}>
-        <p><input type=submit value=Compute></form></p>
-    
-    </div>
+            </select>
+        </div>
+        <div class="form-outline">
+            <label class="form-label" for="number">Chart history [min]</label>
+            <input type="number" id="minutes" name="minutes" class="form-control" min="1" max="60" value="{{ minute }}"/>
+        </div>
+        <button type="submit" class="btn btn-primary mr-1">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block content %}
     <div id="natlenienie">
-        Hello, world. You're at the projekt index.<br>
         {% if chart %}
             <img src="data:image/png;base64, {{ chart|safe}}"/>
         {% endif %}
         <h1>  {{ type }} pomiary </h1>
-        {% for list_element in latest_measurements_list %}
-            {{ list_element.timestamp|date:"d-m-Y G:i:s" }} --> 
-            {{ list_element.natlenienie|floatformat:2 }}
-            <br>
-        {% endfor %}
+        <table class="table table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Datetime</th>
+            <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for list_element in latest_measurements_list %}
+                </tr>
+                <td> {{ forloop.counter }} </td>
+                <td> {{ list_element.timestamp|date:"d-m-Y G:i:s" }} </td>
+                <td> {{ list_element.natlenienie|floatformat:2 }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
     </div>
 
 {% endblock %}
 
+{% block rightbar %}
+    <div id="rightBarUpdated">
+        {% for indicator, value in infoList.items %}
+        {{ indicator }} -- {{ value|floatformat:2 }}</br>
+        {% endfor %}
+    </div>
+{% endblock %}
 
 {% block scripts %}
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
-    var seconds = 3; 
+    var seconds = 1; 
     window.setInterval('refresh()', seconds * 1000);
         function refresh()
         { 
             $( "#natlenienie" ).load(window.location.href + " #natlenienie" );
+            $( "#rightBarUpdated" ).load(window.location.href + " #rightBarUpdated" );
         }     
     </script>  
 {% endblock %}
