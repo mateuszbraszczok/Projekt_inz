@@ -1,5 +1,17 @@
 {% extends 'main.html' %}
 {% block content %}
+    <div>  
+        <form method=post action="/projekt/viewChange/">
+        {% csrf_token %}
+        <select id="variable" name="variable">
+            {% for variable in possibleVariables %}
+                <option value={{variable}}>{{variable}}</option>
+            {% endfor %}
+        </select>
+        <input type="number" id="minutes" name="minutes" min="1" max="60" value={{ minute }}>
+        <p><input type=submit value=Compute></form></p>
+    
+    </div>
     <div id="natlenienie">
         Hello, world. You're at the projekt index.<br>
         {% if chart %}

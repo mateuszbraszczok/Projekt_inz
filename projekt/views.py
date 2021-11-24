@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from datetime import datetime, timedelta
 
@@ -33,8 +33,8 @@ def dane(request, variable, minutes):
         toExecute = "[y."+ variable +" for y in latest_measurements_list]"
         x = [x.timestamp for x in latest_measurements_list]
         y = eval(toExecute)
-        chart = get_plot(x, y, "Wykres " + variable)
-        returnDict = {'latest_measurements_list': latest_measurements_list, 'chart': chart, 'type': variable}
+        chart = get_plot(x, y, variable)
+        returnDict = {'latest_measurements_list': latest_measurements_list, 'chart': chart, 'type': variable, 'possibleVariables': possibleVariables, 'minute': minutes}
         return render(request,"natlenienie.html", returnDict )
     else:
         return HttpResponseNotFound("Page not found") 
@@ -44,3 +44,20 @@ def schemat(request):
     poziom = latest_measurements_list.poziom
     natlenienie = latest_measurements_list.natlenienie
     return render(request,"schemat.html", {'poziom': poziom, 'natlenienie': natlenienie})
+
+def viewChange(request):
+    if request.method == 'POST':
+        print("\n\nhi\n")
+        POSTValues = request.POST
+
+        print(POSTValues['variable'])
+        print(POSTValues['minutes'])
+        html=""
+        returnHtml = "/projekt/data/{}/minutes/{}".format(POSTValues['variable'], POSTValues['minutes'])
+        return redirect(returnHtml)
+    else:
+        return HttpResponseNotFound("Page not found") 
+    # latest_measurements_list = Measurements.objects.latest('id')
+    # poziom = latest_measurements_list.poziom
+    # natlenienie = latest_measurements_list.natlenienie
+    # return render(request,"schemat.html", {'poziom': poziom, 'natlenienie': natlenienie})

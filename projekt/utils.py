@@ -2,6 +2,9 @@ import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 
+params = {'natlenienie': "Aeration [%]", 
+        'poziom': "Level [cm]"}
+        
 
 def get_graph():
     buffer = BytesIO()
@@ -26,7 +29,7 @@ def get_plot(x, y, title):
     plt.plot(x,y, marker='o')
     plt.xticks(rotation=45)
     plt.xlabel('time')
-    plt.ylabel('value')
+    plt.ylabel(params[title])
     plt.grid()
     plt.tight_layout()
     plt.gcf().autofmt_xdate()
