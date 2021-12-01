@@ -18,7 +18,8 @@ def keysToString(keys):
 def valuesToTuple(values):
     returnValue = tuple()
     for value in values:
-        returnValue += (float(value[1]),)
+        number = float("{:.2f}".format(float(value[1])))
+        returnValue += (number,)
     return returnValue
 
 

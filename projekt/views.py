@@ -37,7 +37,7 @@ def dane(request, variable, minutes):
         y = eval(toExecute)
         chart = get_plot(x, y, variable)
         returnDict = {'latest_measurements_list': latest_measurements_list, 'chart': chart, 'type': variable, 'possibleVariables': possibleVariables, 'minute': minutes, 'infoList': infoList}
-        return render(request,"natlenienie.html", returnDict )
+        return render(request,"data.html", returnDict )
     else:
         return HttpResponseNotFound("Page not found") 
 

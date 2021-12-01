@@ -5,6 +5,10 @@ import sys
 
 
 def main():
+    currentDirectory = os.path.dirname(os.path.abspath(__file__))
+    currentDirectory += "\LabviewFiles\TransferVariablesToDatabase.exe"
+    os.startfile(currentDirectory)
+    print(currentDirectory)
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
     try:
