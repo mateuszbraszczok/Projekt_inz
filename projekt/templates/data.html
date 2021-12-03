@@ -36,11 +36,11 @@
             </tr>
         </thead>
         <tbody>
-            {% for list_element in latest_measurements_list %}
+            {% for x,y in resultList %}
                 </tr>
                 <td> {{ forloop.counter }} </td>
-                <td> {{ list_element.timestamp|date:"d-m-Y G:i:s" }} </td>
-                <td> {{ list_element.natlenienie }} </td>
+                <td> {{ x|date:"d-m-Y G:i:s" }} </td>
+                <td> {{ y }} </td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -64,8 +64,12 @@
     window.setInterval('refresh()', seconds * 1000);
         function refresh()
         { 
-            $( "#natlenienie" ).load(window.location.href + " #natlenienie" );
-            $( "#rightBarUpdated" ).load(window.location.href + " #rightBarUpdated" );
+            $.get(window.location.href)
+            .done(function(r) {
+                var newDom = $(r);
+                $('#natlenienie').replaceWith($('#natlenienie',newDom));
+                $('#rightBarUpdated').replaceWith($('#rightBarUpdated',newDom));
+             });
         }     
     </script>  
 {% endblock %}

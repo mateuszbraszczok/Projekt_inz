@@ -2,9 +2,8 @@ import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 from matplotlib.dates import DateFormatter
+from pythonFiles.variables import params
 
-params = {'natlenienie': "Aeration [%]", 
-        'poziom': "Level [cm]"}
         
 
 def get_graph():

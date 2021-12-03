@@ -3,8 +3,9 @@ import sqlite3
 from sqlite3 import Error
 import socket
 import time
-
-tags = ["poziom", "natlenienie"]
+from datetime import datetime
+from variables import tags
+tags = ["Level", "Aeration", "Feed", "Mixer", "Overflow", "Recycle", "Substrate", "CO2", "Mixing", "pH", "Temperature", "Redox", "Turbidity", "Oxygen"]
 
 dbName = "db.sqlite3"
 
@@ -12,7 +13,8 @@ def keysToString(keys):
     returnValue = ""
     for key in keys:
         returnValue += str(key[0]) + ","
-    return returnValue[0:-1]
+    returnValue += "timestamp"
+    return returnValue
 
 
 def valuesToTuple(values):
@@ -41,9 +43,13 @@ def handling(msg):
     with conn:
         keys = keysToString(dataToDatabase)
         values = valuesToTuple(dataToDatabase)
-    
+        
+        now = datetime.now()
+        formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
+        values += (formatted_date,)
+
         cur = conn.cursor()
-        sql = "INSERT INTO Measurements({}) VALUES({})".format(keys, ("?," * len(values))[:-1] )
+        sql = "INSERT INTO Measurements({}) VALUES({})".format(keys, ("?," * len(values))[:-1])
         cur.execute(sql, values)
         conn.commit()
         cur.lastrowid
@@ -56,6 +62,7 @@ def main():
         try:
             message ="hi"
             s.send(message.encode("utf-8"))
+            time.sleep(0.01)
             msg= s.recv(2048)
             text = msg.decode("utf-8") 
             handling(text)

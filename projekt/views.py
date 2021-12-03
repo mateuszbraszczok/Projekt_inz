@@ -4,8 +4,11 @@ from datetime import datetime, timedelta
 from django.db.models import Avg, Max, Min
 from .models import Measurements
 
+from django.utils import timezone
+
 from .utils import get_plot
 
+from pythonFiles.variables import tags
 # Create your views here.
 
 def index(request):
@@ -25,26 +28,31 @@ def natlenienie(request):
 
     return render(request,"natlenienie.html", {'latest_measurements_list': latest_measurements_list, 'chart': chart})
 
+    
 def dane(request, variable, minutes):
-    possibleVariables = ['natlenienie', 'poziom']
-    if variable in possibleVariables:
+    possibleVariables = tags.copy()
+
+    if variable in tags:
         possibleVariables.remove(variable)
-        time_threshold = datetime.now() - timedelta(minutes=minutes)
+        time_threshold = timezone.now() - timedelta(minutes=minutes)
         latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold).order_by("-id")
         infoList = latest_measurements_list.aggregate(Avg(variable), Max(variable), Min(variable))
         toExecute = "[y."+ variable +" for y in latest_measurements_list]"
         x = [x.timestamp for x in latest_measurements_list]
         y = eval(toExecute)
+        resultList = zip(x,y)
         chart = get_plot(x, y, variable)
-        returnDict = {'latest_measurements_list': latest_measurements_list, 'chart': chart, 'type': variable, 'possibleVariables': possibleVariables, 'minute': minutes, 'infoList': infoList}
+        
+        returnDict = {'resultList': resultList, 'chart': chart, 'type': variable, 'possibleVariables': possibleVariables, 'minute': minutes, 'infoList': infoList}
         return render(request,"data.html", returnDict )
     else:
         return HttpResponseNotFound("Page not found") 
 
 def schemat(request):
     latest_measurements_list = Measurements.objects.latest('id')
-    poziom = latest_measurements_list.poziom
-    natlenienie = latest_measurements_list.natlenienie
+    poziom = latest_measurements_list.Level
+    natlenienie = latest_measurements_list.Oxygen
+    print("render")
     return render(request,"schemat.html", {'poziom': poziom, 'natlenienie': natlenienie})
 
 def viewChange(request):
