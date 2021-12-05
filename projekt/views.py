@@ -52,8 +52,8 @@ def schemat(request):
     latest_measurements_list = Measurements.objects.latest('id')
     poziom = latest_measurements_list.Level
     natlenienie = latest_measurements_list.Oxygen
-    print("render")
-    return render(request,"schemat.html", {'poziom': poziom, 'natlenienie': natlenienie})
+    substrate = latest_measurements_list.Substrate
+    return render(request,"schemat.html", {'poziom': poziom, 'natlenienie': natlenienie, 'substrate': substrate})
 
 def viewChange(request):
     if request.method == 'POST':

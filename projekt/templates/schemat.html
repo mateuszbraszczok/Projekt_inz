@@ -1,25 +1,57 @@
 {% extends 'main.html' %}
+{% load mathfilters %}
 {% block content %}
+<script type="text/javascript">  
+    function initializeCanvas()
+    {
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.rect(0, 0, 150, 100);
+        ctx.fill();    
+    }
+</script> 
     <div id="schemat">
+        <div id="substrate" style="background-image: url('/static/projekt/img/button_{% if substrate %}on{% else %}off{% endif %}.png');" >
+            
+            
+        </div>
+        Substrate dosing
         <div id="natlenienie">
             {{natlenienie|floatformat:2}}
         </div>
         <div id="poziom">
             {{poziom|floatformat:2}}
         </div>
+        
+        <div id="poziomrys" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0) {% load mathfilters %} {{100 | sub:poziom }}%, rgba(0,0,247,100) {{100 | sub:poziom }}%); ">  
+        </div>
+        {% comment %} <canvas id="myCanvas" width="300" height="255" style="border:1px solid #d3d3d3;" >
+            <script> initializeCanvas(); </script>
+            Your browser does not support the HTML5 canvas tag.</canvas> {% endcomment %}
 
     </div>
+    
 
 {% endblock %}
 
 
 {% block css %}
     <style>
+        #substrate{
+            position:relative;
+            //background-image:url('/static/projekt/img/button_off.png');
+            height:38px;
+            left:110px;
+            top:126px;
+            width:62px;
+        }
         #schemat{
             position:relative;
-            background-image:url('/static/projekt/img/schemat.png');
-            height:600px;
-            width:882px;
+            background-image:url('/static/projekt/img/schemat2.png');
+            height:535px;
+            width:1298px;
         }
         #natlenienie{
             position:absolute;
@@ -27,25 +59,46 @@
             top:470px;
             width:882px;
         }
-        #poziom{
+        #poziomrys{
             position:absolute;
-            left:150px;
-            top:290px;
-            width:882px;
+            left:258px;
+            top:210px;
+            width:313px;
+            height:241px;
+            background-color: transparent; /* For browsers that do not support gradients */
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0) {% load mathfilters %} {{100 | sub:poziom }}%, rgba(0,0,247,100) {{100 | sub:poziom }}%);
         }
+
+        {% comment %} #myCanvas{
+            position:absolute;
+            left:254px;
+            top:158px;
+            width:315px;
+        } {% endcomment %}
+
     </style>
 {% endblock %}
 
 
 {% block scripts %}
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
     var seconds = 1; 
     window.setInterval('refresh()', seconds * 1000);
         function refresh()
         { 
-            $( "#schemat" ).load(window.location.href + " #schemat" );
-            {% comment %} $( "#poziom" ).load(window.location.href + " #poziom" ); {% endcomment %}
+            $.get(window.location.href)
+            .done(function(r) {
+                var newDom = $(r);
+                $('#schemat').replaceWith($('#schemat',newDom));
+                //$('#poziomrys').replaceWith($('#poziomrys',newDom));
+                //$('#poziomrys').style.backgroundImage = "linear-gradient(to bottom, rgba(0,0,0,0) {% load mathfilters %} {{100 | sub:poziom }}%, rgba(0,0,247,100) {{100 | sub:poziom }}%");
+            });
+            var red = document.getElementById('poziomrys');
+            red.style.backgroundImage = 'linear-gradient(to bottom, rgba(0,0,0,0)  {{100 | sub:poziom }}%, rgba(0,0,247,100) {{100 | sub:poziom }}%)';
+           // $('#poziomrys').style.backgroundImage = "linear-gradient(to bottom, rgba(0,0,0,0)  {{100 | sub:poziom }}%, rgba(0,0,247,100) {{100 | sub:poziom }}%)";
+           console.log({{100 | sub:poziom }})
         }     
     </script>  
 {% endblock %}
