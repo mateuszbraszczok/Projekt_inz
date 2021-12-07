@@ -1,4 +1,4 @@
-tags = ["Level", "Aeration", "Feed", "Mixer", "Overflow", "Recycle", "Substrate", "CO2", "Mixing", "pH", "Temperature", "Redox", "Turbidity", "Oxygen"]
+tags = ["Level", "Aeration", "Feed", "Mixer", "Overflow", "Recycle", "Substrate", "CO2", "Mixing", "pH", "Temperature", "Redox", "Turbidity", "Oxygen", "Flow"]
 
 params = {tags[0]: "Level [cm]", 
         tags[1]: "Aeration",
@@ -13,5 +13,5 @@ params = {tags[0]: "Level [cm]",
         tags[10]: "Temperature [deg C]",
         tags[11]: "Redox [mV]",
         tags[12]: "Turbidity [mg/l]",
-        tags[13]: "Oxygen [mg/l"}
-
+        tags[13]: "Oxygen [mg/l]",
+        tags[14]: "Flow [ml/min]"}

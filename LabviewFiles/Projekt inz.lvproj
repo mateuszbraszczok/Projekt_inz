@@ -15,6 +15,7 @@
 	<Property Name="varPersistentID:{6F1A9016-FB78-40C0-B6E6-06A0456EE0F0}" Type="Ref">/My Computer/odczytywane.lvlib/CO2_odczyt</Property>
 	<Property Name="varPersistentID:{749EF42D-7413-410B-B171-833CA44BFA7D}" Type="Ref">/My Computer/zapisywane.lvlib/Overflow</Property>
 	<Property Name="varPersistentID:{75C02BB3-2052-4C7A-B3EB-C50AE82C2334}" Type="Ref">/My Computer/zapisywane.lvlib/Oxygen</Property>
+	<Property Name="varPersistentID:{80FAB0C8-068F-4D29-959A-454222CDB2C4}" Type="Ref">/My Computer/odczytywane.lvlib/Flow_read</Property>
 	<Property Name="varPersistentID:{884BEDA7-756C-4054-97B7-DB73FA81A765}" Type="Ref">/My Computer/zapisywane.lvlib/Aeration</Property>
 	<Property Name="varPersistentID:{913D632B-EC5F-4505-9C86-87FA3E50088A}" Type="Ref">/My Computer/odczytywane.lvlib/Temperature_odczyt</Property>
 	<Property Name="varPersistentID:{935E49D8-B965-4129-A38F-3FC6E4955E64}" Type="Ref">/My Computer/odczytywane.lvlib/Mixer_odczyt</Property>
@@ -28,6 +29,7 @@
 	<Property Name="varPersistentID:{ED5BC5A6-61A6-463E-B8FD-38FC2CB98A09}" Type="Ref">/My Computer/zapisywane.lvlib/Feed</Property>
 	<Property Name="varPersistentID:{F48244D2-E816-4298-9B83-B813DC7F967A}" Type="Ref">/My Computer/odczytywane.lvlib/Feed_odczyt</Property>
 	<Property Name="varPersistentID:{FB13C77B-824D-46D2-B7CB-52DEA37E6345}" Type="Ref">/My Computer/odczytywane.lvlib/Turbidity_odczyt</Property>
+	<Property Name="varPersistentID:{FD5DE687-F5A9-4705-A5E4-57CFBF886E2F}" Type="Ref">/My Computer/zapisywane.lvlib/Flow [ml min]</Property>
 	<Item Name="My Computer" Type="My Computer">
 		<Property Name="server.app.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="server.control.propertiesEnabled" Type="Bool">true</Property>
@@ -41,6 +43,7 @@
 		<Item Name="odczytywane.lvlib" Type="Library" URL="../odczytywane.lvlib"/>
 		<Item Name="odczytywanie.vi" Type="VI" URL="../odczytywanie.vi"/>
 		<Item Name="ProcessData.ctl" Type="VI" URL="../ProcessData.ctl"/>
+		<Item Name="Untitled 2.vi" Type="VI" URL="../../../../Untitled 2.vi"/>
 		<Item Name="zapis.vi" Type="VI" URL="../zapis.vi"/>
 		<Item Name="zapisywane.lvlib" Type="Library" URL="../zapisywane.lvlib"/>
 		<Item Name="Dependencies" Type="Dependencies">
@@ -80,7 +83,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToProject</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{2DFC6FCE-FB46-4EBD-86C8-AEF0D63D5653}</Property>
-				<Property Name="Bld_version.build" Type="Int">10</Property>
+				<Property Name="Bld_version.build" Type="Int">12</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">TransferVariablesToDatabase.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../TransferVariablesToDatabase.exe</Property>
@@ -96,7 +99,7 @@
 				<Property Name="Exe_Vardep[1].LibItemID" Type="Ref">/My Computer/odczytywane.lvlib</Property>
 				<Property Name="Exe_VardepDeployAtStartup" Type="Bool">true</Property>
 				<Property Name="Exe_VardepLibItemCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{63064EBF-BF08-4F18-836A-3266B06D865C}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{A51A8A33-56FB-4706-9DFA-BD2FEBD7F9C0}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/odczytywanie.vi</Property>

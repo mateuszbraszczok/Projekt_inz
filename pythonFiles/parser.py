@@ -5,7 +5,6 @@ import socket
 import time
 from datetime import datetime
 from variables import tags
-tags = ["Level", "Aeration", "Feed", "Mixer", "Overflow", "Recycle", "Substrate", "CO2", "Mixing", "pH", "Temperature", "Redox", "Turbidity", "Oxygen"]
 
 dbName = "db.sqlite3"
 

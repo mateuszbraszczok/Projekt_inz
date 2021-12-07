@@ -50,10 +50,10 @@ def dane(request, variable, minutes):
 
 def schemat(request):
     latest_measurements_list = Measurements.objects.latest('id')
-    poziom = latest_measurements_list.Level
-    natlenienie = latest_measurements_list.Oxygen
+    level = latest_measurements_list.Level
+    oxygen = latest_measurements_list.Oxygen
     substrate = latest_measurements_list.Substrate
-    return render(request,"schemat.html", {'poziom': poziom, 'natlenienie': natlenienie, 'substrate': substrate})
+    return render(request,"schemat.html", {'level': level, 'oxygen': oxygen, 'substrate': substrate, 'latest_measurements_list': latest_measurements_list})
 
 def viewChange(request):
     if request.method == 'POST':

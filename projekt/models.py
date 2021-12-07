@@ -19,6 +19,7 @@ class Measurements(models.Model):
     Redox = models.FloatField(blank=True, null=True)
     Turbidity = models.FloatField(blank=True, null=True)
     Oxygen = models.FloatField(blank=True, null=True)
+    Flow = models.FloatField(blank=True, null=True)
 
     timestamp = models.DateTimeField('Created Time', auto_now=True, null=True)
 

@@ -42,6 +42,19 @@
 		<Property Name="varSourceProjectPath" Type="Str">My Computer\zapisywane.lvlib\Feed</Property>
 		<Property Name="varSourceProjectSubPath" Type="Str"></Property>
 	</Item>
+	<Item Name="Flow_read" Type="Variable">
+		<Property Name="featurePacks" Type="Str">Network</Property>
+		<Property Name="Network:AccessType" Type="Str">read/write</Property>
+		<Property Name="Network:ProjectBinding" Type="Str">True</Property>
+		<Property Name="Network:ProjectPath" Type="Str">My Computer\zapisywane.lvlib\Flow [ml min]</Property>
+		<Property Name="Network:UseBinding" Type="Str">True</Property>
+		<Property Name="Network:UseBuffering" Type="Str">False</Property>
+		<Property Name="numTypedefs" Type="UInt">0</Property>
+		<Property Name="type" Type="Str">Network</Property>
+		<Property Name="typeDesc" Type="Bin">)!#!!!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!!J*1!!!#!!A!!!!!!"!!V!#A!'2'^V9GRF!!!"!!!!!!!!!!!!!!!!!!!!!!!!</Property>
+		<Property Name="varSourceProjectPath" Type="Str">My Computer\zapisywane.lvlib\Flow [ml min]</Property>
+		<Property Name="varSourceProjectSubPath" Type="Str"></Property>
+	</Item>
 	<Item Name="Level_read" Type="Variable">
 		<Property Name="featurePacks" Type="Str">Network</Property>
 		<Property Name="Network:AccessType" Type="Str">read/write</Property>
