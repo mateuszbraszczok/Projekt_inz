@@ -52,7 +52,7 @@
 {% block rightbar %}
     <div id="rightBarUpdated">
         {% for indicator, value in infoList.items %}
-        {{ indicator }} -- {{ value|floatformat:2 }}</br>
+            {{ indicator }} -- {{ value|floatformat:2 }}</br>
         {% endfor %}
     </div>
 {% endblock %}

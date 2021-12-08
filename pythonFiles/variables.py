@@ -1,17 +1,17 @@
-tags = ["Level", "Aeration", "Feed", "Mixer", "Overflow", "Recycle", "Substrate", "CO2", "Mixing", "pH", "Temperature", "Redox", "Turbidity", "Oxygen", "Flow"]
+tags = ["timestamp", "Level", "Aeration", "Feed", "Mixer", "Overflow", "Recycle", "Substrate", "CO2", "Mixing", "pH", "Temperature", "Redox", "Turbidity", "Oxygen", "Flow"]
 
-params = {tags[0]: "Level [cm]", 
-        tags[1]: "Aeration",
-        tags[2]: "Feed",
-        tags[3]: "Mixer",
-        tags[4]: "Overflow",
-        tags[5]: "Recycle",
-        tags[6]: "Substrate",
-        tags[7]: "CO2 [ppm]",
-        tags[8]: "Mixing [%]",
-        tags[9]: "pH",
-        tags[10]: "Temperature [deg C]",
-        tags[11]: "Redox [mV]",
-        tags[12]: "Turbidity [mg/l]",
-        tags[13]: "Oxygen [mg/l]",
-        tags[14]: "Flow [ml/min]"}
+params = {tags[1]: "Level [cm]", 
+        tags[2]: "Aeration",
+        tags[3]: "Feed",
+        tags[4]: "Mixer",
+        tags[5]: "Overflow",
+        tags[6]: "Recycle",
+        tags[7]: "Substrate",
+        tags[8]: "CO2 [ppm]",
+        tags[9]: "Mixing [%]",
+        tags[10]: "pH",
+        tags[11]: "Temperature [deg C]",
+        tags[12]: "Redox [mV]",
+        tags[13]: "Turbidity [mg/l]",
+        tags[14]: "Oxygen [mg/l]",
+        tags[15]: "Flow [ml/min]"}

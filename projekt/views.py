@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
+from dateutil import parser
 from django.db.models import Avg, Max, Min
 from .models import Measurements
 
 from django.utils import timezone
 
 from .utils import get_plot
-
+import csv
 from pythonFiles.variables import tags
 # Create your views here.
 
@@ -57,17 +58,76 @@ def schemat(request):
 
 def viewChange(request):
     if request.method == 'POST':
-        print("\n\nhi\n")
         POSTValues = request.POST
-
-        print(POSTValues['variable'])
-        print(POSTValues['minutes'])
-        html=""
         returnHtml = "/projekt/data/{}/minutes/{}".format(POSTValues['variable'], POSTValues['minutes'])
         return redirect(returnHtml)
     else:
         return HttpResponseNotFound("Page not found") 
-    # latest_measurements_list = Measurements.objects.latest('id')
-    # poziom = latest_measurements_list.poziom
-    # natlenienie = latest_measurements_list.natlenienie
-    # return render(request,"schemat.html", {'poziom': poziom, 'natlenienie': natlenienie})
+
+
+def psg(request, date):
+    query="date.values_list("
+    for tag in tags:
+        query+='"' +str(tag) + '",'
+    query = query[:-1]+")"
+    queryset = eval(query)
+    print("response")
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="export.csv"'
+    writer = csv.writer(response, delimiter=";")
+    writer.writerow(tags)
+    print(queryset)
+    for user in queryset:
+        print(user)
+        writer.writerow(user)
+    
+    return response
+
+def history(request, year=None, month=None, day=None):
+    if(year ==None or month == None or day == None):
+        latest_measurements_list = Measurements.objects.filter(timestamp__gte = date.today())
+        return render(request,"history.html" )
+
+    else:
+        startdate = date(year, month, day)
+        enddate = startdate + timedelta(days=1)
+        latest_measurements_list = Measurements.objects.filter(timestamp__range=[startdate, enddate])
+        if not latest_measurements_list:
+            return render(request,"history.html", {"noData": True} )    
+    
+    #response = psg(request, latest_measurements_list)
+
+
+        query="latest_measurements_list.values_list("
+        for tag in tags:
+            query+='"' +str(tag) + '",'
+        query = query[:-1]+")"
+        queryset = eval(query)
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="export.csv"'
+        writer = csv.writer(response, delimiter=";")
+        writer.writerow(tags)
+        for user in queryset:
+            writer.writerow(user)
+
+    #print(latest_measurements_list)
+    # statsList=list()
+    # for tag in tags:
+    #     if tag == "timestamp":
+    #         continue
+    #     infoList = latest_measurements_list.aggregate(Avg(tag), Max(tag), Min(tag))
+    #     statsList.append(infoList)
+    # #print(statsList)
+    # returnDict = {'statsList' :statsList}
+    # return render(request,"history.html", {'returnDict': returnDict})
+    return response
+
+def dateChange(request):
+    if request.method == 'POST':
+        POSTValues = request.POST
+        dt = parser.parse(POSTValues['historyDate'])
+        print(dt)
+        returnHtml = "/projekt/history/{}/{}/{}".format(dt.year, dt.month, dt.day)
+        return redirect(returnHtml)
+    else:
+        return HttpResponseNotFound("Page not found") 

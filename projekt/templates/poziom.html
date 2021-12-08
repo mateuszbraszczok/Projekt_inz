@@ -5,7 +5,7 @@
         <h1> poziom pomiary </h1>
         {% for list_element in latest_measurements_list %}
             {{ list_element.timestamp }} --> 
-            {{ list_element.poziom|floatformat:2 }}
+            {{ list_element.Level|floatformat:2 }}
             <br>
         {% endfor %}
     </div>
