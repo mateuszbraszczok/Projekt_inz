@@ -31,6 +31,28 @@
 
 {% block scripts %}
     <script type="text/javascript">
-        document.getElementById('datePicker').value = new Date().toDateInputValue();
+            function getDate() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+          
+            if(dd<10) {
+                dd = '0'+dd
+            } 
+          
+            if(mm<10) {
+                mm = '0'+mm
+            } 
+          
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("datePicker").value = today;
+            document.getElementById("datePicker").max = today;
+          }
+          
+          
+          window.onload = function() {
+            getDate();
+          };
     </script>  
 {% endblock %}

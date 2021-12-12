@@ -52,9 +52,9 @@ def dane(request, variable, minutes):
 def schemat(request):
     latest_measurements_list = Measurements.objects.latest('id')
     level = latest_measurements_list.Level
-    oxygen = latest_measurements_list.Oxygen
-    substrate = latest_measurements_list.Substrate
-    return render(request,"schemat.html", {'level': level, 'oxygen': oxygen, 'substrate': substrate, 'latest_measurements_list': latest_measurements_list})
+    temperaturePercent = dict()
+    temperaturePercent["temperaturePercent"] = ((40.0 - latest_measurements_list.Temperature)/ 25.0) *100.0
+    return render(request,"schemat.html", {'level': level, 'latest_measurements_list': latest_measurements_list, "temperaturePercent":temperaturePercent})
 
 def viewChange(request):
     if request.method == 'POST':
@@ -104,7 +104,8 @@ def history(request, year=None, month=None, day=None):
         query = query[:-1]+")"
         queryset = eval(query)
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="export.csv"'
+        content = 'attachment; filename="{}-{}-{}"'.format(year, month, day)
+        response['Content-Disposition'] = content
         writer = csv.writer(response, delimiter=";")
         writer.writerow(tags)
         for user in queryset:

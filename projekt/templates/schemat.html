@@ -17,15 +17,7 @@
                 {{latest_measurements_list.Level|floatformat:2}}
             </div>
         </a>
-        <a href="/projekt/data/Temperature/minutes/5"> 
-            <div id="temperatureText">
-                Temperature [deg C]
-            </div>
-            <div id="temperature">
-                {{latest_measurements_list.Temperature|floatformat:2}}
-            </div>
-        </a>
-        <div id="levelrys" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0) {% load mathfilters %} {{100 | sub:level }}%, rgba(0,0,247,100) {{100 | sub:level }}%); ">  
+        <div id="levelrys" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0) {{100 | sub:latest_measurements_list.Level }}%, rgba(0,0,247,100) {{100 | sub:latest_measurements_list.Level }}%); ">  
             <a href="/projekt/data/Turbidity/minutes/5"> 
                 <div id="turbidityText">
                     Turbidity [mg/l]
@@ -34,9 +26,25 @@
                     {{latest_measurements_list.Turbidity|floatformat:2}}
                 </div>
             </a>
-            <img src="/static/projekt/img/mixer_transparent.png" height="100%">
-            
+            <img src="/static/projekt/img/mixer_transparent.png" height="100%" >
         </div>
+        <a href="/projekt/data/Temperature/minutes/5"> 
+            <div id="temperatureText">
+                Temperature [deg C]
+            </div>
+            <div id="temperature">
+                {{latest_measurements_list.Temperature|floatformat:2}}
+            </div>
+        </a>
+        <div id="temperaturerys" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0)  
+            {% if latest_measurements_list.Temperature > 40 %}
+                0%, rgba(247,0,0,100) 0%); ">  
+            {% elif latest_measurements_list.Temperature < 15 %} 
+                100%, rgba(247,0,0,100) 100%); "> 
+            {% else %}
+                {{ temperaturePercent.temperaturePercent }}%, rgba(247,0,0,100) {{ temperaturePercent.temperaturePercent }}%); ">  
+            {% endif %}
+            </div>
         <a href="/projekt/data/Aeration/minutes/5"> 
             <div id="aerationText">
                 Aeration
@@ -197,6 +205,14 @@
             width:50px;
             height:50px;
         }
+        #temperaturerys{
+            position:absolute;
+            left:104px;
+            top:338px;
+            width:21px;
+            height:100px;
+            background-color: transparent;
+        }
         #temperatureText{
             border-radius: 3px;
             position:absolute;
@@ -306,7 +322,7 @@
             border-radius: 3px;
             position:absolute;
             height:27px;
-            left:735px;
+            left:730px;
             top:283px;
             padding:1px;
             border: 1px solid gray;

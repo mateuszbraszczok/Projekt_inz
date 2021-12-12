@@ -67,15 +67,15 @@
 			<Item Name="CreateXmlFromReadings.vi" Type="VI" URL="../CreateXmlFromReadings.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
-			<Item Name="Parsing data from Shared Variable to " Type="EXE">
+			<Item Name="Parsing data from Shared Variable to Database" Type="EXE">
 				<Property Name="App_copyErrors" Type="Bool">true</Property>
 				<Property Name="App_INI_aliasGUID" Type="Str">{9EEFA3FB-30A7-4F01-A744-39C6020F1DF9}</Property>
 				<Property Name="App_INI_GUID" Type="Str">{BEFC4E6E-2751-4CEC-A191-B39A0D5CD314}</Property>
 				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
-				<Property Name="App_serverType" Type="Int">0</Property>
+				<Property Name="App_serverType" Type="Int">1</Property>
 				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
 				<Property Name="Bld_buildCacheID" Type="Str">{D8198AA6-56B3-420D-8D67-17008B2D9BA8}</Property>
-				<Property Name="Bld_buildSpecName" Type="Str">Parsing data from Shared Variable to </Property>
+				<Property Name="Bld_buildSpecName" Type="Str">Parsing data from Shared Variable to Database</Property>
 				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
 				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
 				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
@@ -83,7 +83,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToProject</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{2DFC6FCE-FB46-4EBD-86C8-AEF0D63D5653}</Property>
-				<Property Name="Bld_version.build" Type="Int">12</Property>
+				<Property Name="Bld_version.build" Type="Int">13</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">TransferVariablesToDatabase.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../TransferVariablesToDatabase.exe</Property>
@@ -99,7 +99,7 @@
 				<Property Name="Exe_Vardep[1].LibItemID" Type="Ref">/My Computer/odczytywane.lvlib</Property>
 				<Property Name="Exe_VardepDeployAtStartup" Type="Bool">true</Property>
 				<Property Name="Exe_VardepLibItemCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{A51A8A33-56FB-4706-9DFA-BD2FEBD7F9C0}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{E4B0E181-BC45-4089-B99C-3E1EB8AE1173}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/odczytywanie.vi</Property>
@@ -121,10 +121,10 @@
 				<Property Name="Source[4].type" Type="Str">Library</Property>
 				<Property Name="SourceCount" Type="Int">5</Property>
 				<Property Name="TgtF_companyName" Type="Str">Politechnika Śląska</Property>
-				<Property Name="TgtF_fileDescription" Type="Str">Parsing data from Shared Variable to </Property>
-				<Property Name="TgtF_internalName" Type="Str">Parsing data from Shared Variable to </Property>
+				<Property Name="TgtF_fileDescription" Type="Str">Parsing data from Shared Variable to Database</Property>
+				<Property Name="TgtF_internalName" Type="Str">Parsing data from Shared Variable to Database</Property>
 				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2021 Politechnika Śląska</Property>
-				<Property Name="TgtF_productName" Type="Str">Parsing data from Shared Variable to </Property>
+				<Property Name="TgtF_productName" Type="Str">Parsing data from Shared Variable to Database</Property>
 				<Property Name="TgtF_targetfileGUID" Type="Str">{E5D82009-B96D-4038-B469-9A968139263E}</Property>
 				<Property Name="TgtF_targetfileName" Type="Str">TransferVariablesToDatabase.exe</Property>
 				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>

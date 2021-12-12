@@ -8,7 +8,9 @@
             <select class="form-control" id="variable" name="variable">
             <option value={{type}} selected>{{type}}</option>
             {% for variable in possibleVariables %}
-                <option value={{variable}}>{{variable}}</option>
+                {% if variable != "timestamp" %}
+                    <option value={{variable}}>{{variable}}</option>
+                {% endif %}    
             {% endfor %}
             </select>
         </div>

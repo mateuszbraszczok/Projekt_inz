@@ -20,7 +20,7 @@ def get_graph():
 
 def get_plot(x, y, title):
     plt.switch_backend('AGG')
-    plt.figure(figsize=(16,8))
+    plt.figure(figsize=(12,8))
     plt.title(title)
     plt.plot(x,y, marker='o')
     plt.xticks(rotation=45)
