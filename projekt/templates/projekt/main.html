@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html> 
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{% static 'projekt/js/bootstrap.min.js' %}"></script>
+     
+        <title>Projekt inżynierski</title>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'projekt/css/bootstrap.css' %}" />
+        {% block css %}
+            <style>    
+                body{
+                    background-color: #D6E6EA;
+                }
+                footer {
+                    position: fixed;
+                    bottom: 0;
+                    width: 100%;
+                }
+            </style>
+        {% endblock css %}
+    
+    </head>
+
+    <body>  
+        {% include "projekt/utils/topbar.html" %}    
+            
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2">
+                    {% block leftbar %}
+                    {% endblock %}
+                </div>
+                <div class="col-md-8">
+                        {% block content %}
+                        {% endblock %}                
+                </div>
+                <div class="col-md-2">
+                    {% block rightbar %}
+                    {% endblock %}
+                </div>
+            </div>  
+        </div>
+
+        {% include "projekt/utils/footer.html" %}    
+
+
+    {% block scripts %}
+    {% endblock scripts %}
+    </body>
+</html>

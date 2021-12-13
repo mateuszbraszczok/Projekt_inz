@@ -1,0 +1,430 @@
+{% extends 'projekt/main.html' %}
+{% load mathfilters %}
+{% block content %}
+    <div id="schemat">
+        <a href="/projekt/data/Substrate/minutes/5"> 
+            <div id="substrateText">
+                Substrate dosing
+            </div>
+            <div id="substrate" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Substrate %}on{% else %}off{% endif %}.png');">  
+            </div>
+        </a>
+        <a href="/projekt/data/Level/minutes/5"> 
+            <div id="levelText">
+                Level [cm]
+            </div>
+            <div id="level">
+                {{latest_measurements_list.Level|floatformat:2}}
+            </div>
+        </a>
+        <div id="levelrys" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0) {{100 | sub:latest_measurements_list.Level }}%, rgba(0,0,247,100) {{100 | sub:latest_measurements_list.Level }}%); ">  
+            <a href="/projekt/data/Turbidity/minutes/5"> 
+                <div id="turbidityText">
+                    Turbidity [mg/l]
+                </div>
+                <div id="turbidity">
+                    {{latest_measurements_list.Turbidity|floatformat:2}}
+                </div>
+            </a>
+            <img src="/static/projekt/img/mixer_transparent.png" height="100%" >
+        </div>
+        <a href="/projekt/data/Temperature/minutes/5"> 
+            <div id="temperatureText">
+                Temperature [deg C]
+            </div>
+            <div id="temperature">
+                {{latest_measurements_list.Temperature|floatformat:2}}
+            </div>
+        </a>
+        <div id="temperaturerys" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0)  
+            {% if latest_measurements_list.Temperature > 40 %}
+                0%, rgba(247,0,0,100) 0%); ">  
+            {% elif latest_measurements_list.Temperature < 15 %} 
+                100%, rgba(247,0,0,100) 100%); "> 
+            {% else %}
+                {{ temperaturePercent.temperaturePercent }}%, rgba(247,0,0,100) {{ temperaturePercent.temperaturePercent }}%); ">  
+            {% endif %}
+            </div>
+        <a href="/projekt/data/Aeration/minutes/5"> 
+            <div id="aerationText">
+                Aeration
+            </div>
+            <div id="aeration" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Substrate %}on{% else %}off{% endif %}.png');">  
+            </div>
+        </a>
+        <a href="/projekt/data/Overflow/minutes/5"> 
+            <div id="overflowText">
+                Overflow
+            </div>
+            <div id="overflow" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Substrate %}on{% else %}off{% endif %}.png');">  
+            </div>
+        </a>
+        <a href="/projekt/data/Recycle/minutes/5"> 
+            <div id="recycleText">
+                Recycle
+            </div>
+                <div id="recycle" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Recycle %}on{% else %}off{% endif %}.png');">  
+            </div>
+        </a>
+        <a href="/projekt/data/Mixer/minutes/5"> 
+            <div id="mixerText">
+                MixingS
+            </div>
+            <div id="mixer" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Mixer %}on{% else %}off{% endif %}.png');">  
+            </div>
+        </a>
+        <a href="/projekt/data/Mixing/minutes/5">
+            <div id="mixingText">
+                Mixing [%]
+            </div>
+            <div id="mixing" >  
+                {{latest_measurements_list.Mixing|floatformat:2}}
+            </div>
+        </a>
+        <a href="/projekt/data/Flow/minutes/5">
+            <div id="flowText">
+                Flow [ml/min]
+            </div>
+            <div id="flow" >  
+                {{latest_measurements_list.Flow|floatformat:2}}
+            </div>
+        </a>
+        <a href="/projekt/data/Feed/minutes/5">
+            <div id="feedText">
+                Feed
+            </div>
+            <div id="feed" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Feed %}on{% else %}off{% endif %}.png');">  
+            </div>
+        </a>
+        <center><div id="date">{{ latest_measurements_list.timestamp|date:"d-m-Y G:i:s" }}</div></center>
+
+    </div>
+    <div id="rightBarUpdated">
+        <a href="/projekt/data/pH/minutes/5">
+            <div id ="pH">
+                <div id ="pHText">
+                    pH
+                </div><br>
+                <div id ="pHValue">
+                    {{latest_measurements_list.pH|floatformat:2}}
+                </div>
+            </div>
+        </a>
+        <a href="/projekt/data/Redox/minutes/5">
+            <div id ="redox">
+                <div id ="redoxText">
+                    Redox [mV]
+                </div><br>
+                <div id ="redoxValue">
+                    {{latest_measurements_list.Redox|floatformat:2}}
+                </div>
+            </div>
+        </a>
+        <a href="/projekt/data/Oxygen/minutes/5">
+            <div id ="oxygen">
+                <div id ="oxygenText">
+                    Oxygen [mg/l]
+                </div><br>
+                <div id ="oxygenValue">
+                    {{latest_measurements_list.Oxygen|floatformat:2}}
+                </div>
+            </div>
+        </a>
+        
+    </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        #schemat{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            position:relative;
+            background-image:url('/static/projekt/img/schemat2.png');
+            height:535px;
+            width:1298px;
+            float:left;
+        }
+        #rightBarUpdated{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            position:relative;
+            background-color:lightgray;
+            height:535px;
+        }
+        #substrate{
+            position:absolute;
+            height:38px;
+            left:100px;
+            top:126px;
+            width:62px;
+        }
+        #substrateText{
+            border-radius: 3px;
+            position:absolute;
+            height:53px;
+            left:20px;
+            top:126px;
+            width:75px;
+            padding:2px;
+            border: 1px solid gray;
+            background-color: Lime;
+            {% comment %} display:inline-block; {% endcomment %}
+        }
+        
+        #levelrys{
+            position:absolute;
+            left:258px;
+            top:210px;
+            width:313px;
+            height:241px;
+            background-color: transparent;
+        }
+        #levelText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:153px;
+            top:200px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: DeepSkyBlue;
+        }
+        #level{
+            position:absolute;
+            left:162px;
+            top:238px;
+            width:50px;
+            height:50px;
+        }
+        #temperaturerys{
+            position:absolute;
+            left:104px;
+            top:338px;
+            width:21px;
+            height:100px;
+            background-color: transparent;
+        }
+        #temperatureText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:10px;
+            top:290px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: red;
+        }
+        #temperature{
+            position:absolute;
+            left:147px;
+            top:367px;
+            width:50px;
+            height:50px;
+        }
+        #turbidityText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:150px;
+            top:120px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: darkgray;
+        }
+        #turbidity{
+            position:absolute;
+            height:28px;
+            left:150px;
+            top:150px;
+            width:50px;
+            padding: 2px;
+            display: flex;
+            background-color: darkgray;
+        }
+        #aerationText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:300px;
+            top:452px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: orange;
+        }
+        #aeration{
+            position:absolute;
+            left:300px;
+            top:480px;
+            width:62px;
+            height:38px;
+        }
+        #overflowText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:600px;
+            top:250px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: DeepSkyBlue;
+        }
+        #overflow{
+            position:absolute;
+            height:38px;
+            left:600px;
+            top:278px;
+            width:62px;
+        }
+        #recycleText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:620px;
+            top:403px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: red;
+        }
+        #recycle{
+            position:absolute;
+            height:38px;
+            left:620px;
+            top:448px;
+            width:62px;
+        }
+        #mixerText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:900px;
+            top:270px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: red;
+        }
+        #mixer{
+            position:absolute;
+            height:38px;
+            left:900px;
+            top:300px;
+            width:62px;
+        }
+        #mixingText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:730px;
+            top:283px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: red;
+        }
+        #mixing{
+            position:absolute;
+            height:38px;
+            left:740px;
+            top:315px;
+            width:62px;
+            display: flex;
+        }
+        #flowText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:730px;
+            top:447px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: red;
+        }
+        #flow{
+            position:absolute;
+            height:38px;
+            left:750px;
+            top:478px;
+            width:62px;
+            display: flex;
+        }
+        #feedText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:1150px;
+            top:170px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: red;
+        }
+        #feed{
+            position:absolute;
+            height:38px;
+            left:1150px;
+            top:200px;
+            width:62px;
+        }
+        #pH{
+            position:absolute;
+            left:25px;
+            top:100px;
+            width:882px;
+        }
+        #pHtext{
+            padding: 9px 8px;
+            color: darkgrey;
+            transition: 0.3s;
+            left: 0;
+            top: 0;
+        }
+        
+        #redox{
+            position:absolute;
+            left:25px;
+            top:200px;
+            width:882px;
+        }
+        #oxygen{
+            position:absolute;
+            left:25px;
+            top:300px;
+            width:882px; 
+        }
+        #date{
+            left: 300px;
+            top: 3%;
+            margin: 0 auto;
+            position: relative;
+            background:lightgray;
+            border: 1px solid gray;
+            font-weight: bold;
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block scripts %}
+
+    <script type="Text/javascript">
+        var seconds = 1; 
+        window.setInterval('refresh()', seconds * 1000);
+        function refresh()
+        { 
+            $.get(window.location.href)
+            .done(function(r) {
+                var newDom = $(r);
+                //$('#schemat').replaceWith($('#schemat',newDom));
+                $('#rightBarUpdated').replaceWith($('#rightBarUpdated',newDom));
+            });
+
+        }     
+    </script>  
+{% endblock %}

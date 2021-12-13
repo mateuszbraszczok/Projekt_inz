@@ -1,0 +1,98 @@
+{% extends 'projekt/main.html' %}
+{% block leftbar %}
+<div>  
+    
+<script type="text/javascript">
+    function atleast_onecheckbox(e) {
+        if ($("input[type=checkbox]:checked").length === 0) {
+            e.preventDefault();
+            alert('Check minimum 1 variable');
+            return false;
+        }
+        if ($("input[type=checkbox]:checked").length > 3) {
+            e.preventDefault();
+            alert('Check maximum 3 variables');
+            return false;
+        }
+      }  
+     </script>  
+    <br>
+    <form method="post" action="/projekt/viewChange/" onsubmit="return atleast_onecheckbox(event)">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Select Chart:</label><br>
+            {% comment %} <select class="form-control" id="variable" name="variable"> {% endcomment %}
+            {% comment %} <option value={{type}} selected>{{type}}</option> {% endcomment %}
+            <div class="check_fields">
+                {% for variable in possibleVariables %}
+                    {% if variable != "timestamp" %}
+                        <input  class="select-unselect" type="checkbox" id="invite" name="{{variable}}" value="{{variable}}" >
+                        <label for="{{variable}}"> {{variable}}</label><br>
+                        {% comment %} <option value={{variable}}>{{variable}}</option> {% endcomment %}
+                    {% endif %}    
+                {% endfor %}
+            {% comment %} </select> {% endcomment %}
+            </div>
+        </div>
+        <br>
+        <div class="form-outline">
+            <label class="form-label" for="number">Chart history [min]</label>
+            <input type="number" id="minutes" name="minutes" class="form-control" min="1" max="60" value="{{ minute }}"/>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary mr-1" >Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div id="natlenienie">
+        {% if chart %}
+            <img src="data:image/png;base64, {{ chart|safe}}"/>
+        {% endif %}
+        <h1>  {{ type }} pomiary </h1>
+        <table class="table table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Datetime</th>
+            <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x,y in resultList %}
+                </tr>
+                <td> {{ forloop.counter }} </td>
+                <td> {{ x|date:"d-m-Y G:i:s" }} </td>
+                <td> {{ y }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block rightbar %}
+    <div id="rightBarUpdated">
+        {% for indicator, value in infoList.items %}
+            {{ indicator }} -- {{ value|floatformat:2 }}</br>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        var seconds = 1; 
+        window.setInterval('refresh()', seconds * 1000);
+        function refresh()
+        { 
+            $.get(window.location.href)
+            .done(function(r) {
+                var newDom = $(r);
+                $('#natlenienie').replaceWith($('#natlenienie',newDom));
+                $('#rightBarUpdated').replaceWith($('#rightBarUpdated',newDom));
+            });
+        }     
+    </script>  
+{% endblock %}
