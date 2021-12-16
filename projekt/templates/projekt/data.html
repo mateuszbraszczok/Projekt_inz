@@ -26,7 +26,10 @@
             <div class="check_fields">
                 {% for variable in possibleVariables %}
                     {% if variable != "timestamp" %}
-                        <input  class="select-unselect" type="checkbox" id="invite" name="{{variable}}" value="{{variable}}" >
+                        <input  class="select-unselect" type="checkbox" id="invite" name="{{variable}}" value="{{variable}}"
+                            {% if variable in variables%}
+                                checked
+                            {% endif %} >
                         <label for="{{variable}}"> {{variable}}</label><br>
                         {% comment %} <option value={{variable}}>{{variable}}</option> {% endcomment %}
                     {% endif %}    
@@ -56,17 +59,44 @@
             <tr>
             <th scope="col">#</th>
             <th scope="col">Datetime</th>
-            <th scope="col">Value</th>
+            <th scope="col">{{ variables.0 }}</th>
+            {% if noOfVariables == 2 %}
+                <th scope="col">{{ variables.1 }}</th>
+            {% elif noOfVariables == 3 %}
+                <th scope="col">{{ variables.1 }}</th>
+                <th scope="col">{{ variables.2 }}</th>
+            {% endif %}
             </tr>
         </thead>
         <tbody>
-            {% for x,y in resultList %}
-                </tr>
-                <td> {{ forloop.counter }} </td>
-                <td> {{ x|date:"d-m-Y G:i:s" }} </td>
-                <td> {{ y }} </td>
-                </tr>
-            {% endfor %}
+            {% if noOfVariables == 1 %}
+                {% for x, y in resultList %}
+                    </tr>
+                    <td> {{ forloop.counter }} </td>
+                    <td> {{ x|date:"d-m-Y G:i:s" }} </td>
+                    <td> {{ y }} </td>
+                    </tr>
+                {% endfor %}
+            {% elif noOfVariables == 2 %}
+                {% for x, y, y2 in resultList %}
+                    </tr>
+                    <td> {{ forloop.counter }} </td>
+                    <td> {{ x|date:"d-m-Y G:i:s" }} </td>
+                    <td> {{ y }} </td>
+                    <td> {{ y2 }} </td>
+                    </tr>
+                {% endfor %}
+            {% elif noOfVariables == 3 %}
+                {% for x, y, y2, y3 in resultList %}
+                    </tr>
+                    <td> {{ forloop.counter }} </td>
+                    <td> {{ x|date:"d-m-Y G:i:s" }} </td>
+                    <td> {{ y }} </td>
+                    <td> {{ y2 }} </td>
+                    <td> {{ y3 }} </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
         </tbody>
         </table>
     </div>
