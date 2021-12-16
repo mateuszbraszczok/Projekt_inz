@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -133,3 +134,9 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 LOGIN_REDIRECT_URL = "/projekt"
 
 LOGOUT_REDIRECT_URL = "/projekt"
+
+# AUTO_LOGOUT = {
+#     'SESSION_TIME': 1440,
+#     'MESSAGE': 'The session has expired. Please login again to continue.',
+# }
+# SESSION_COOKIE_AGE = 1 * 20

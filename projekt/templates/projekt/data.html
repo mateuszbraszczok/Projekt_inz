@@ -1,28 +1,11 @@
 {% extends 'projekt/main.html' %}
 {% block leftbar %}
 <div>  
-    
-<script type="text/javascript">
-    function atleast_onecheckbox(e) {
-        if ($("input[type=checkbox]:checked").length === 0) {
-            e.preventDefault();
-            alert('Check minimum 1 variable');
-            return false;
-        }
-        if ($("input[type=checkbox]:checked").length > 3) {
-            e.preventDefault();
-            alert('Check maximum 3 variables');
-            return false;
-        }
-      }  
-     </script>  
     <br>
     <form method="post" action="/projekt/viewChange/" onsubmit="return atleast_onecheckbox(event)">
         {% csrf_token %}
         <div class="form-group">
             <label for="exampleFormControlSelect1">Select Chart:</label><br>
-            {% comment %} <select class="form-control" id="variable" name="variable"> {% endcomment %}
-            {% comment %} <option value={{type}} selected>{{type}}</option> {% endcomment %}
             <div class="check_fields">
                 {% for variable in possibleVariables %}
                     {% if variable != "timestamp" %}
@@ -31,16 +14,14 @@
                                 checked
                             {% endif %} >
                         <label for="{{variable}}"> {{variable}}</label><br>
-                        {% comment %} <option value={{variable}}>{{variable}}</option> {% endcomment %}
                     {% endif %}    
                 {% endfor %}
-            {% comment %} </select> {% endcomment %}
             </div>
         </div>
         <br>
         <div class="form-outline">
             <label class="form-label" for="number">Chart history [min]</label>
-            <input type="number" id="minutes" name="minutes" class="form-control" min="1" max="60" value="{{ minute }}"/>
+            <input type="number" id="minutes" name="minutes" class="form-control" min="1" max="120" value="{{ minute }}"/>
         </div>
         <br>
         <button type="submit" class="btn btn-primary mr-1" >Submit</button>
@@ -113,6 +94,20 @@
 
 {% block scripts %}
     <script type="text/javascript">
+        function atleast_onecheckbox(e) {
+            if ($("input[type=checkbox]:checked").length === 0) {
+                e.preventDefault();
+                alert('Check minimum 1 variable');
+                return false;
+            }
+            if ($("input[type=checkbox]:checked").length > 3) {
+                e.preventDefault();
+                alert('Check maximum 3 variables');
+                return false;
+            }
+        }  
+    </script>  
+    <script type="text/javascript">
         var seconds = 1; 
         window.setInterval('refresh()', seconds * 1000);
         function refresh()
@@ -124,5 +119,5 @@
                 $('#rightBarUpdated').replaceWith($('#rightBarUpdated',newDom));
             });
         }     
-    </script>  
+    </script>
 {% endblock %}

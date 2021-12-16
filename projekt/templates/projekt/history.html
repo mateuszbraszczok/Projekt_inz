@@ -1,6 +1,7 @@
 {% extends 'projekt/main.html' %}
 {% block leftbar %}
 <div>  
+    <br>
     <form method="post" action="/projekt/dateChange/">
         {% csrf_token %}
         <div class="form-outline" style="top:100px;">
@@ -14,18 +15,20 @@
 {% endblock %}
 
 {% block content %}
-    {% if noData%}
-        <strong> No data </strong>
-    {% endif %}
-    <div id="rightBarUpdated">
-        {{returnDict.statsList}} <br>
-        {% for items in returnDict.statsList %}
-            {{items}} <br>
-            {% comment %} {% for indicator, value in items %}
-                {{ indicator }} -- {{ value|floatformat:2 }}</br>
-            {% endfor %} {% endcomment %}
-        {% endfor %}
-    </div>
+    <center>
+        {% if noData%}
+            <strong> No data </strong>
+        {% endif %}
+        <div id="rightBarUpdated">
+            {{returnDict.statsList}} <br>
+            {% for items in returnDict.statsList %}
+                {{items}} <br>
+                {% comment %} {% for indicator, value in items %}
+                    {{ indicator }} -- {{ value|floatformat:2 }}</br>
+                {% endfor %} {% endcomment %}
+            {% endfor %}
+        </div>
+    </center>
 {% endblock %}
 
 

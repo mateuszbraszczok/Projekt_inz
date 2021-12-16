@@ -108,6 +108,17 @@ def dane3(request, var1, var2, var3, minutes):
         y1 = eval(toExecute1)
         y2 = eval(toExecute2)
         y3 = eval(toExecute3)
+        if minutes > 60:
+            x = x[::10]
+            y1 = y1[::10]
+            y2 = y2[::10]
+            y3 = y3[::10]
+        elif minutes > 30:
+            x = x[::2]
+            y1 = y1[::2]
+            y2 = y2[::2]
+            y3 = y3[::2]
+
         resultList = zip(x, y1, y2, y3)
         
 
@@ -193,7 +204,7 @@ def history(request, year=None, month=None, day=None):
         query = query[:-1]+")"
         queryset = eval(query)
         response = HttpResponse(content_type='text/csv')
-        content = 'attachment; filename="{}-{}-{}"'.format(year, month, day)
+        content = 'attachment; filename="{}-{}-{}.csv"'.format(year, month, day)
         response['Content-Disposition'] = content
         writer = csv.writer(response, delimiter=";")
         writer.writerow(tags)

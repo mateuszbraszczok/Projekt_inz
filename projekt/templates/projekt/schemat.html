@@ -45,11 +45,35 @@
                 {{ temperaturePercent.temperaturePercent }}%, rgba(247,0,0,100) {{ temperaturePercent.temperaturePercent }}%); ">  
             {% endif %}
             </div>
+        <a href="/projekt/data/Aeration_percentage/minutes/5"> 
+            <div id="aerationPercText">
+                Aeration [%]
+            </div>
+            <div id="aerationPerc" >  
+                {{latest_measurements_list.Aeration_percentage|floatformat:2}}
+            </div> 
+        </a>
         <a href="/projekt/data/Aeration/minutes/5"> 
             <div id="aerationText">
                 Aeration
             </div>
             <div id="aeration" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Substrate %}on{% else %}off{% endif %}.png');">  
+            </div>
+        </a>
+        <a href="/projekt/data/CO2_10000ppm/minutes/5"> 
+            <div id="CO2_10000Text">
+                CO2 [10000ppm]
+            </div>
+            <div id="CO2_10000">
+                {{latest_measurements_list.CO2_10000ppm|floatformat:2}}
+            </div>
+        </a>
+        <a href="/projekt/data/CO2_3000ppm/minutes/5"> 
+            <div id="CO2_3000Text">
+                CO2 [3000ppm]
+            </div>
+            <div id="CO2_3000">
+                {{latest_measurements_list.CO2_3000ppm|floatformat:2}}
             </div>
         </a>
         <a href="/projekt/data/Overflow/minutes/5"> 
@@ -99,6 +123,9 @@
         <center><div id="date">{{ latest_measurements_list.timestamp|date:"d-m-Y G:i:s" }}</div></center>
 
     </div>
+    {% endblock %}
+    
+    {% block rightbar %}
     <div id="rightBarUpdated">
         <a href="/projekt/data/pH/minutes/5">
             <div id ="pH">
@@ -132,7 +159,8 @@
         </a>
         
     </div>
-{% endblock %}
+    {% endblock %}
+
 
 {% block css %}
     <style>
@@ -250,6 +278,44 @@
             display: flex;
             background-color: darkgray;
         }
+        #CO2_10000Text{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:520px;
+            top:43px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: darkgray;
+        }
+        #CO2_10000{
+            position:absolute;
+            height:28px;
+            left:440px;
+            top:43px;
+            width:50px;
+            padding: 2px;
+            display: flex;
+        }
+        #CO2_3000Text{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:520px;
+            top:93px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: darkgray;
+        }
+        #CO2_3000{
+            position:absolute;
+            height:28px;
+            left:440px;
+            top:92px;
+            width:50px;
+            padding: 2px;
+            display: flex;
+        }
         #aerationText{
             border-radius: 3px;
             position:absolute;
@@ -266,6 +332,24 @@
             top:480px;
             width:62px;
             height:38px;
+        }
+        #aerationPercText{
+            border-radius: 3px;
+            position:absolute;
+            height:27px;
+            left:410px;
+            top:452px;
+            padding:1px;
+            border: 1px solid gray;
+            background-color: lightblue;
+        }
+        #aerationPerc{
+            position:absolute;
+            left:420px;
+            top:489px;
+            width:62px;
+            height:38px;
+            display: flex;
         }
         #overflowText{
             border-radius: 3px;
@@ -398,7 +482,7 @@
             width:882px; 
         }
         #date{
-            left: 300px;
+            left: 200px;
             top: 3%;
             margin: 0 auto;
             position: relative;
@@ -421,7 +505,7 @@
             $.get(window.location.href)
             .done(function(r) {
                 var newDom = $(r);
-                //$('#schemat').replaceWith($('#schemat',newDom));
+                $('#schemat').replaceWith($('#schemat',newDom));
                 $('#rightBarUpdated').replaceWith($('#rightBarUpdated',newDom));
             });
 

@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 import sqlite3
 from sqlite3 import Error
 import socket
-import time
+import sched, time
 from datetime import datetime
 from variables import tags
 
@@ -58,6 +58,7 @@ def main():
     s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((socket.gethostname(),6340))
     while True:
+        starttime = time.time()
         try:
             message ="hi"
             s.send(message.encode("utf-8"))
@@ -65,7 +66,7 @@ def main():
             msg= s.recv(2048)
             text = msg.decode("utf-8") 
             handling(text)
-            time.sleep(1)
+            time.sleep(1 - ((time.time() - starttime) % 1.0))
         except Exception as e:
             print(e)
             s.close()

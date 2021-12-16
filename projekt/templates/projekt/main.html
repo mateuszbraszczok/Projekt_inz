@@ -8,22 +8,13 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="{% static 'projekt/js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'projekt/bootstrap/js/bootstrap.min.js' %}"></script>
      
         <title>Projekt inżynierski</title>
-
-        <link rel="stylesheet" type="text/css" href="{% static 'projekt/css/bootstrap.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'projekt/bootstrap/css/bootstrap.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'projekt/css/styles.css' %}" />
+        
         {% block css %}
-            <style>    
-                body{
-                    background-color: #D6E6EA;
-                }
-                footer {
-                    position: fixed;
-                    bottom: 0;
-                    width: 100%;
-                }
-            </style>
         {% endblock css %}
     
     </head>
@@ -47,9 +38,10 @@
                 </div>
             </div>  
         </div>
+        <div class="page-wrapper">
+        </div>
 
         {% include "projekt/utils/footer.html" %}    
-
 
     {% block scripts %}
     {% endblock scripts %}
