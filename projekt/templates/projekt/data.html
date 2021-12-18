@@ -1,5 +1,10 @@
 {% extends 'projekt/main.html' %}
 {% block leftbar %}
+<style>
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+    border: 1px solid black; //your desired color
+}
+</style>
 <div>  
     <br>
     <form method="post" action="/projekt/viewChange/" onsubmit="return atleast_onecheckbox(event)">
@@ -21,7 +26,7 @@
         <br>
         <div class="form-outline">
             <label class="form-label" for="number">Chart history [min]</label>
-            <input type="number" id="minutes" name="minutes" class="form-control" min="1" max="120" value="{{ minute }}"/>
+            <input type="number" id="minutes" name="minutes" class="form-control" style="width: 8em;" min="1" max="120" value="{{ minute }}"/>
         </div>
         <br>
         <button type="submit" class="btn btn-primary mr-1" >Submit</button>
@@ -32,9 +37,9 @@
 {% block content %}
     <div id="natlenienie">
         {% if chart %}
-            <img src="data:image/png;base64, {{ chart|safe}}"/>
+            <img src="data:image/png;base64, {{ chart|safe}}" style="width: 100%;"/>
         {% endif %}
-        <h1>  {{ type }} pomiary </h1>
+        <h1> Tabela pomiarów: </h1>
         <table class="table table-bordered">
         <thead>
             <tr>
@@ -86,9 +91,27 @@
 
 {% block rightbar %}
     <div id="rightBarUpdated">
-        {% for indicator, value in infoList.items %}
-            {{ indicator }} -- {{ value|floatformat:2 }}</br>
-        {% endfor %}
+        <table class="table table-bordered">
+        <thead>
+            <tr>
+            <td></td>
+            <th scope="col">Avg</th>
+            <th scope="col">Max</th>
+            <th scope="col">Min</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in infoList %}
+                <tr>
+                    <th scope="row"> {{ value.var }}</th>
+                    <td>{{value.values.0 |floatformat:2}}</td>
+                    <td>{{value.values.1 |floatformat:2}}</td>
+                    <td>{{value.values.2 |floatformat:2}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     </div>
 {% endblock %}
 

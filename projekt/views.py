@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from datetime import datetime, timedelta, date
 from dateutil import parser
-from django.db.models import Avg, Max, Min
+
 from django.contrib.auth.decorators import login_required
 from .models import Measurements
 
 from django.utils import timezone
 
-from .utils import get_plot
+from .utils import *
 import csv
-from pythonFiles.variables import tags
+from pythonFiles.variables import *
 # Create your views here.
 
 def index(request):
@@ -33,20 +33,19 @@ def natlenienie(request):
 
 @login_required(login_url='/login')    
 def dane1(request, var1, minutes):
-    # letter_list = var1.split(",")
-    # print(letter_list)
     possibleVariables = tags.copy()
+    variables = [var1]
 
     if var1 in tags:
-        #possibleVariables.remove(var1)
         time_threshold = timezone.now() - timedelta(minutes=minutes)
-        latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold).order_by("-id")
-        infoList = latest_measurements_list.aggregate(Avg(var1), Max(var1), Min(var1))
-        toExecute = "[y."+ var1 +" for y in latest_measurements_list]"
-        x = [x.timestamp for x in latest_measurements_list]
+        latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold).order_by("-id").values('timestamp', var1)
+
+        infoList = infoList = getInfoList(variables, latest_measurements_list)
+        toExecute = "[y1['"+ var1 +"'] for y1 in latest_measurements_list]"
+        x = [x['timestamp'] for x in latest_measurements_list]
         y = eval(toExecute)
         resultList = zip(x, y)
-        variables = [var1]
+        
         chart = get_plot(variables, x, y)
         
         
@@ -59,23 +58,21 @@ def dane1(request, var1, minutes):
 
 @login_required(login_url='/login')
 def dane2(request, var1, var2, minutes):
-    # letter_list = var1.split(",")
-    # print(letter_list)
     possibleVariables = tags.copy()
+    variables = [var1, var2]
 
     if var1 in tags:
-        #possibleVariables.remove(var1)
         time_threshold = timezone.now() - timedelta(minutes=minutes)
-        latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold).order_by("-id")
-        infoList = latest_measurements_list.aggregate(Avg(var1), Max(var1), Min(var1))
-        toExecute1 = "[y1."+ var1 +" for y1 in latest_measurements_list]"
-        toExecute2 = "[y2."+ var2 +" for y2 in latest_measurements_list]"
-        x = [x.timestamp for x in latest_measurements_list]
+        latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold).order_by("-id").values('timestamp', var1, var2)
+        infoList=infoList = getInfoList(variables, latest_measurements_list)
+
+        toExecute1 = "[y1['"+ var1 +"'] for y1 in latest_measurements_list]"
+        toExecute2 = "[y2['"+ var2 +"'] for y2 in latest_measurements_list]"
+        x = [x['timestamp'] for x in latest_measurements_list]
         y1 = eval(toExecute1)
         y2 = eval(toExecute2)
         resultList = zip(x, y1, y2)
 
-        variables = [var1, var2]
         chart = get_plot(variables, x, y1, y2)
             
         returnDict = {'resultList': resultList, 
@@ -92,19 +89,18 @@ def dane2(request, var1, var2, minutes):
 
 @login_required(login_url='/login')
 def dane3(request, var1, var2, var3, minutes):
-    # letter_list = var1.split(",")
-    # print(letter_list)
     possibleVariables = tags.copy()
-    
+    variables = [var1, var2, var3]
+
     if var1 in tags:
-        #possibleVariables.remove(var1)
         time_threshold = timezone.now() - timedelta(minutes=minutes)
-        latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold).order_by("-id")
-        infoList = latest_measurements_list.aggregate(Avg(var1), Max(var1), Min(var1))
-        toExecute1 = "[y1."+ var1 +" for y1 in latest_measurements_list]"
-        toExecute2 = "[y2."+ var2 +" for y2 in latest_measurements_list]"
-        toExecute3 = "[y3."+ var3 +" for y3 in latest_measurements_list]"
-        x = [x.timestamp for x in latest_measurements_list]
+        latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold).order_by("-id").values('timestamp', var1, var2, var3)
+        infoList = getInfoList(variables, latest_measurements_list)
+        
+        toExecute1 = "[y1['"+ var1 +"'] for y1 in latest_measurements_list]"
+        toExecute2 = "[y2['"+ var2 +"'] for y2 in latest_measurements_list]"
+        toExecute3 = "[y3['"+ var3 +"'] for y3 in latest_measurements_list]"
+        x = [x['timestamp'] for x in latest_measurements_list]
         y1 = eval(toExecute1)
         y2 = eval(toExecute2)
         y3 = eval(toExecute3)
@@ -122,7 +118,7 @@ def dane3(request, var1, var2, var3, minutes):
         resultList = zip(x, y1, y2, y3)
         
 
-        variables = [var1, var2, var3]
+        
         chart = get_plot(variables, x, y1, y2, y3)
         returnDict = {'resultList': resultList, 
             'chart': chart, 

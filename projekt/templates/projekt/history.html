@@ -15,6 +15,16 @@
 {% endblock %}
 
 {% block content %}
+    <form method="post" action="/projekt/dateChange/">
+        {% csrf_token %}
+        <div class="form-outline" style="top:100px;">
+            <label for="start">Start date:</label>
+            <input type="month" id="monthPicker" name="month">
+
+        </div>
+        
+        <button type="submit" class="btn btn-primary mr-1">Submit</button>
+    </form>
     <center>
         {% if noData%}
             <strong> No data </strong>

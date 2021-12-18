@@ -1,6 +1,6 @@
 {% extends 'projekt/main.html' %}
 {% load mathfilters %}
-{% block content %}
+{% block oneColumn %}
     <div id="schemat">
         <a href="/projekt/data/Substrate/minutes/5"> 
             <div id="substrateText">
@@ -125,24 +125,24 @@
     </div>
     {% endblock %}
     
-    {% block rightbar %}
+    {% block anotherColumn %}
     <div id="rightBarUpdated">
         <a href="/projekt/data/pH/minutes/5">
             <div id ="pH">
                 <div id ="pHText">
-                    pH
+                    <strong> pH</strong>
                 </div><br>
-                <div id ="pHValue">
+                <div id ="pHValue" style="border-style: dotted; border-width: 2px;">
                     {{latest_measurements_list.pH|floatformat:2}}
                 </div>
             </div>
         </a>
         <a href="/projekt/data/Redox/minutes/5">
-            <div id ="redox">
+            <div id ="redox">    
                 <div id ="redoxText">
-                    Redox [mV]
+                    <strong> Redox [mV]</strong>
                 </div><br>
-                <div id ="redoxValue">
+                <div id ="redoxValue" style="border-style: dotted; border-width: 2px;">
                     {{latest_measurements_list.Redox|floatformat:2}}
                 </div>
             </div>
@@ -150,9 +150,9 @@
         <a href="/projekt/data/Oxygen/minutes/5">
             <div id ="oxygen">
                 <div id ="oxygenText">
-                    Oxygen [mg/l]
+                    <strong> Oxygen [mg/l]</strong>
                 </div><br>
-                <div id ="oxygenValue">
+                <div id ="oxygenValue" style="border-style: dotted; border-width: 2px;">
                     {{latest_measurements_list.Oxygen|floatformat:2}}
                 </div>
             </div>
@@ -177,6 +177,7 @@
             background-image:url('/static/projekt/img/schemat2.png');
             height:535px;
             width:1298px;
+            min-width: 100%;
             float:left;
         }
         #rightBarUpdated{
@@ -186,7 +187,8 @@
             display: flex;
             position:relative;
             background-color:lightgray;
-            height:535px;
+            height:150px;
+            min-width: 100%;
         }
         #substrate{
             position:absolute;
@@ -457,29 +459,21 @@
         }
         #pH{
             position:absolute;
-            left:25px;
-            top:100px;
-            width:882px;
+            left:20%;
+            top:25px;
+            width:100px;
         }
-        #pHtext{
-            padding: 9px 8px;
-            color: darkgrey;
-            transition: 0.3s;
-            left: 0;
-            top: 0;
-        }
-        
         #redox{
             position:absolute;
-            left:25px;
-            top:200px;
-            width:882px;
+            left:45%;
+            top:25px;
+            width:100px;
         }
         #oxygen{
             position:absolute;
-            left:25px;
-            top:300px;
-            width:882px; 
+            left:75%;
+            top:25px;
+            width:120px;
         }
         #date{
             left: 200px;

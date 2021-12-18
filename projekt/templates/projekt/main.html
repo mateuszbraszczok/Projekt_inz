@@ -22,7 +22,7 @@
     <body>  
         {% include "projekt/utils/topbar.html" %}    
             
-        <div class="container-fluid">
+        <div class="container-xxl">
             <div class="row">
                 <div class="col-md-2">
                     {% block leftbar %}
@@ -36,7 +36,15 @@
                     {% block rightbar %}
                     {% endblock %}
                 </div>
-            </div>  
+            </div>
+            <div class="row">
+                {% block oneColumn %}
+                {% endblock %}
+            </div> 
+            <div class="row">
+                {% block anotherColumn %}
+                {% endblock %}
+            </div> 
         </div>
         <div class="page-wrapper">
         </div>
