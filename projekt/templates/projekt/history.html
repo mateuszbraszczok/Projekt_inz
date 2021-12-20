@@ -1,43 +1,52 @@
 {% extends 'projekt/main.html' %}
 {% block leftbar %}
-<div>  
-    <br>
-    <form method="post" action="/projekt/dateChange/">
-        {% csrf_token %}
-        <div class="form-outline" style="top:100px;">
-            <label for="start">Start date:</label>
-            <input type="date" id="datePicker" name="historyDate"> 
-        </div>
-        
-        <button type="submit" class="btn btn-primary mr-1">Submit</button>
-    </form>
-</div>
+
 {% endblock %}
 
 {% block content %}
-    <form method="post" action="/projekt/dateChange/">
-        {% csrf_token %}
-        <div class="form-outline" style="top:100px;">
-            <label for="start">Start date:</label>
-            <input type="month" id="monthPicker" name="month">
-
-        </div>
-        
-        <button type="submit" class="btn btn-primary mr-1">Submit</button>
-    </form>
     <center>
-        {% if noData%}
-            <strong> No data </strong>
-        {% endif %}
-        <div id="rightBarUpdated">
-            {{returnDict.statsList}} <br>
-            {% for items in returnDict.statsList %}
-                {{items}} <br>
-                {% comment %} {% for indicator, value in items %}
-                    {{ indicator }} -- {{ value|floatformat:2 }}</br>
-                {% endfor %} {% endcomment %}
-            {% endfor %}
-        </div>
+    <div style= "margin-left:5%; float:left;">  
+        <br>
+        <form method="post" action="/projekt/dateChange/">
+            {% csrf_token %}
+            <div class="form-outline" style="top:100px;">
+                <label for="start">Wybierz dzień:</label>
+                <input type="date" id="datePicker" name="historyDate"> 
+            </div>
+            
+            <button type="submit" class="btn btn-primary mr-1">Wygeneruj raport dniowy</button>
+        </form>
+    </div>
+    <div style= "margin-right:5%;">
+        <br>
+        <form method="post" action="/projekt/dateChange/">
+            {% csrf_token %}
+            <div class="form-outline" style="top:100px;">
+                <label for="start">Wybierz miesiąc:</label>
+                <input type="month" id="monthPicker" name="monthDate">
+            </div>
+            
+            <button type="submit" class="btn btn-primary mr-1">Wygeneruj raport miesięczny</button>
+        </form>
+    </div>
+    </center>
+
+    <center>
+        <div>
+            {% if noData%}
+                <br><br>
+                <strong style="font-size:30px;"> Brak danych w wybranym okresie czasu</strong>
+            {% endif %}
+            <div id="rightBarUpdated">
+                {{returnDict.statsList}} <br>
+                {% for items in returnDict.statsList %}
+                    {{items}} <br>
+                    {% comment %} {% for indicator, value in items %}
+                        {{ indicator }} -- {{ value|floatformat:2 }}</br>
+                    {% endfor %} {% endcomment %}
+                {% endfor %}
+            </div>
+        </div style="clear:both;">
     </center>
 {% endblock %}
 

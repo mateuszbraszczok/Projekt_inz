@@ -86,7 +86,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToProject</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{2DFC6FCE-FB46-4EBD-86C8-AEF0D63D5653}</Property>
-				<Property Name="Bld_version.build" Type="Int">15</Property>
+				<Property Name="Bld_version.build" Type="Int">16</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">TransferVariablesToDatabase.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../TransferVariablesToDatabase.exe</Property>
@@ -102,7 +102,7 @@
 				<Property Name="Exe_Vardep[1].LibItemID" Type="Ref">/My Computer/odczytywane.lvlib</Property>
 				<Property Name="Exe_VardepDeployAtStartup" Type="Bool">true</Property>
 				<Property Name="Exe_VardepLibItemCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{9CAC16BD-CB71-49D3-B0E7-221C9C11AFFE}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{A81A472A-3CBA-4C86-83B6-3344D2F5D484}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/odczytywanie.vi</Property>

@@ -13,6 +13,7 @@ urlpatterns = [
     path('data/<str:var1>/<str:var2>/minutes/<int:minutes>', views.dane2, name='dane'),
     path('data/<str:var1>/<str:var2>/<str:var3>/minutes/<int:minutes>', views.dane3, name='dane'),
     path('gcsv',views.psg),
+    path('history/<int:year>/<int:month>',views.history, name='history'),
     path('history/<int:year>/<int:month>/<int:day>',views.history, name='history'),
     path('history/',views.history, name='history')
 ]

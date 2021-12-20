@@ -10,6 +10,7 @@ from django.utils import timezone
 
 from .utils import *
 import csv
+import math
 from pythonFiles.variables import *
 # Create your views here.
 
@@ -180,11 +181,11 @@ def psg(request, date):
 
 @login_required(login_url='/login')
 def history(request, year=None, month=None, day=None):
-    if(year ==None or month == None or day == None):
+    if(year ==None or month == None):
         latest_measurements_list = Measurements.objects.filter(timestamp__gte = date.today())
         return render(request, "projekt/history.html" )
 
-    else:
+    elif day is not None:
         startdate = date(year, month, day)
         enddate = startdate + timedelta(days=1)
         latest_measurements_list = Measurements.objects.filter(timestamp__range=[startdate, enddate])
@@ -206,6 +207,30 @@ def history(request, year=None, month=None, day=None):
         writer.writerow(tags)
         for user in queryset:
             writer.writerow(user)
+    elif day is None:
+        startdate = date(year, month, 1)
+        enddate = date(year + math.floor((month+1)/12), (month+1)%12, 1)
+        # enddate = startdate + timedelta(months=1)
+        latest_measurements_list = Measurements.objects.filter(timestamp__range=[startdate, enddate])
+        if not latest_measurements_list:
+            return render(request, "projekt/history.html", {"noData": True} )    
+
+    #response = psg(request, latest_measurements_list)
+
+
+        query="latest_measurements_list.values_list("
+        for tag in tags:
+            query+='"' +str(tag) + '",'
+        query = query[:-1]+")"
+        queryset = eval(query)
+        response = HttpResponse(content_type='text/csv')
+        content = 'attachment; filename="{}-{}.csv"'.format(year, month)
+        response['Content-Disposition'] = content
+        writer = csv.writer(response, delimiter=";")
+        writer.writerow(tags)
+        queryset=queryset[::60]
+        for line in queryset:
+            writer.writerow(line)
 
     #print(latest_measurements_list)
     # statsList=list()
@@ -223,9 +248,15 @@ def history(request, year=None, month=None, day=None):
 def dateChange(request):
     if request.method == 'POST':
         POSTValues = request.POST
-        dt = parser.parse(POSTValues['historyDate'])
-        print(dt)
-        returnHtml = "/projekt/history/{}/{}/{}".format(dt.year, dt.month, dt.day)
+        if 'historyDate' in POSTValues:
+            dt = parser.parse(POSTValues['historyDate'])
+            print(dt)
+            returnHtml = "/projekt/history/{}/{}/{}".format(dt.year, dt.month, dt.day)
+        elif 'monthDate' in POSTValues:
+            dt = parser.parse(POSTValues['monthDate'])
+            print(dt)
+            returnHtml = "/projekt/history/{}/{}".format(dt.year, dt.month)
+            print(returnHtml)
         return redirect(returnHtml)
     else:
         return HttpResponseNotFound("Page not found") 
