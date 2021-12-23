@@ -110,7 +110,12 @@ def dane3(request, var1, var2, var3, minutes):
             y1 = y1[::10]
             y2 = y2[::10]
             y3 = y3[::10]
-        elif minutes > 30:
+        elif minutes > 40:
+            x = x[::5]
+            y1 = y1[::5]
+            y2 = y2[::5]
+            y3 = y3[::5]
+        elif minutes > 20:
             x = x[::2]
             y1 = y1[::2]
             y2 = y2[::2]

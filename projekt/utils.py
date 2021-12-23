@@ -38,6 +38,7 @@ def get_plot(variables, x, y, y2 = None, y3=None):
 
     ax.set_ylabel(label)
     ax.yaxis.label.set_color('blue')
+    ax.tick_params(axis='y', colors='blue')
     if type == "bool":
             ax.set_ylim(-0.1, 1.1)
 
@@ -51,6 +52,7 @@ def get_plot(variables, x, y, y2 = None, y3=None):
         lns += lns2
         ax2.set_ylabel(label)
         ax2.yaxis.label.set_color('red')
+        ax2.tick_params(axis='y', colors='red')
         if type == "bool":
             ax2.set_ylim(-0.1, 1.1)
 
@@ -65,6 +67,7 @@ def get_plot(variables, x, y, y2 = None, y3=None):
         lns += lns3
         ax3.set_ylabel(label)
         ax3.yaxis.label.set_color('green')
+        ax3.tick_params(axis='y', colors='green')
 
         if type == "bool":
             ax3.set_ylim(-0.1, 1.1)
