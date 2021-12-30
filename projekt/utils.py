@@ -82,13 +82,10 @@ def get_plot(variables, x, y, y2 = None, y3=None):
     ax.grid()
     ax.set_xlabel("Time")
     
-
-    # ax2.set_ylim(0, 35)
-    # ax.set_ylim(-20,100)
     if y3 is not None:
-        plt.subplots_adjust(left=0.06, right=0.85, top=0.9, bottom=0.05)
+        plt.subplots_adjust(left=0.07, right=0.85, top=0.9, bottom=0.05)
     else:
-          plt.subplots_adjust(left=0.06, right=0.94, top=0.9, bottom=0.05)
+        plt.subplots_adjust(left=0.07, right=0.94, top=0.9, bottom=0.05)
    
 
 

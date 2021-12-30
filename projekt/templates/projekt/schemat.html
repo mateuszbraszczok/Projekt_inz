@@ -2,14 +2,14 @@
 {% load mathfilters %}
 {% block oneColumn %}
     <div id="schemat">
-        <a href="/projekt/data/Substrate/minutes/5"> 
+        <a href="/projekt/minutes/5/data/Substrate"> 
             <div id="substrateText">
                 Substrate dosing
             </div>
             <div id="substrate" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Substrate %}on{% else %}off{% endif %}.png');">  
             </div>
         </a>
-        <a href="/projekt/data/Level/minutes/5"> 
+        <a href="/projekt/minutes/5/data/Level"> 
             <div id="levelText">
                 Level [cm]
             </div>
@@ -18,7 +18,7 @@
             </div>
         </a>
         <div id="levelrys" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0) {{100 | sub:latest_measurements_list.Level }}%, rgba(0,0,247,100) {{100 | sub:latest_measurements_list.Level }}%); ">  
-            <a href="/projekt/data/Turbidity/minutes/5"> 
+            <a href="/projekt/minutes/5/data/Turbidity"> 
                 <div id="turbidityText">
                     Turbidity [mg/l]
                 </div>
@@ -28,7 +28,7 @@
             </a>
             <img src="/static/projekt/img/mixer_transparent.png" height="100%" >
         </div>
-        <a href="/projekt/data/Temperature/minutes/5"> 
+        <a href="/projekt/minutes/5/data/Temperature"> 
             <div id="temperatureText">
                 Temperature [deg C]
             </div>
@@ -42,10 +42,10 @@
             {% elif latest_measurements_list.Temperature < 15 %} 
                 100%, rgba(247,0,0,100) 100%); "> 
             {% else %}
-                {{ temperaturePercent.temperaturePercent }}%, rgba(247,0,0,100) {{ temperaturePercent.temperaturePercent }}%); ">  
+                {{ temperaturePercent }}%, rgba(247,0,0,100) {{ temperaturePercent }}%); ">  
             {% endif %}
             </div>
-        <a href="/projekt/data/Aeration_percentage/minutes/5"> 
+        <a href="/projekt/minutes/5/data/Aeration_percentage"> 
             <div id="aerationPercText">
                 Aeration [%]
             </div>
@@ -53,14 +53,14 @@
                 {{latest_measurements_list.Aeration_percentage|floatformat:2}}
             </div> 
         </a>
-        <a href="/projekt/data/Aeration/minutes/5"> 
+        <a href="/projekt/minutes/5/data/Aeration"> 
             <div id="aerationText">
                 Aeration
             </div>
             <div id="aeration" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Substrate %}on{% else %}off{% endif %}.png');">  
             </div>
         </a>
-        <a href="/projekt/data/CO2_10000ppm/minutes/5"> 
+        <a href="/projekt/minutes/5/data/CO2_10000ppm"> 
             <div id="CO2_10000Text">
                 CO2 [10000ppm]
             </div>
@@ -68,7 +68,7 @@
                 {{latest_measurements_list.CO2_10000ppm|floatformat:2}}
             </div>
         </a>
-        <a href="/projekt/data/CO2_3000ppm/minutes/5"> 
+        <a href="/projekt/minutes/5/data/CO2_3000ppm"> 
             <div id="CO2_3000Text">
                 CO2 [3000ppm]
             </div>
@@ -76,28 +76,28 @@
                 {{latest_measurements_list.CO2_3000ppm|floatformat:2}}
             </div>
         </a>
-        <a href="/projekt/data/Overflow/minutes/5"> 
+        <a href="/projekt/minutes/5/data/Overflow"> 
             <div id="overflowText">
                 Overflow
             </div>
             <div id="overflow" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Substrate %}on{% else %}off{% endif %}.png');">  
             </div>
         </a>
-        <a href="/projekt/data/Recycle/minutes/5"> 
+        <a href="/projekt/minutes/5/data/Recycle"> 
             <div id="recycleText">
                 Recycle
             </div>
                 <div id="recycle" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Recycle %}on{% else %}off{% endif %}.png');">  
             </div>
         </a>
-        <a href="/projekt/data/Mixer/minutes/5"> 
+        <a href="/projekt/minutes/5/data/Mixer"> 
             <div id="mixerText">
                 MixingS
             </div>
             <div id="mixer" style="background-image: url('/static/projekt/img/button_{% if latest_measurements_list.Mixer %}on{% else %}off{% endif %}.png');">  
             </div>
         </a>
-        <a href="/projekt/data/Mixing/minutes/5">
+        <a href="/projekt/minutes/5/data/Mixing">
             <div id="mixingText">
                 Mixing [%]
             </div>
@@ -105,7 +105,7 @@
                 {{latest_measurements_list.Mixing|floatformat:2}}
             </div>
         </a>
-        <a href="/projekt/data/Flow/minutes/5">
+        <a href="/projekt/minutes/5/data/Flow">
             <div id="flowText">
                 Flow [ml/min]
             </div>
@@ -113,7 +113,7 @@
                 {{latest_measurements_list.Flow|floatformat:2}}
             </div>
         </a>
-        <a href="/projekt/data/Feed/minutes/5">
+        <a href="/projekt/minutes/5/data/Feed">
             <div id="feedText">
                 Feed
             </div>
@@ -127,7 +127,7 @@
     
     {% block anotherColumn %}
     <div id="rightBarUpdated">
-        <a href="/projekt/data/pH/minutes/5">
+        <a href="/projekt/minutes/5/data/pH">
             <div id ="pH">
                 <div id ="pHText">
                     <strong> pH</strong>
@@ -137,7 +137,7 @@
                 </div>
             </div>
         </a>
-        <a href="/projekt/data/Redox/minutes/5">
+        <a href="/projekt/minutes/5/data/Redox">
             <div id ="redox">    
                 <div id ="redoxText">
                     <strong> Redox [mV]</strong>
@@ -147,7 +147,7 @@
                 </div>
             </div>
         </a>
-        <a href="/projekt/data/Oxygen/minutes/5">
+        <a href="/projekt/minutes/5/data/Oxygen">
             <div id ="oxygen">
                 <div id ="oxygenText">
                     <strong> Oxygen [mg/l]</strong>
