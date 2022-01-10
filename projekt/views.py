@@ -10,7 +10,7 @@ from register.decorators import allowed_users
 from django.utils import timezone
 
 from .utils import *
-import csv, math
+import csv, math, time
 from pythonFiles.variables import *
 # Create your views here.
 
@@ -20,53 +20,58 @@ def index(request):
 
 @login_required(login_url='/login')
 @allowed_users(allowed_roles=['authenticated'])
-def dane(request, minutes, var1, var2=None, var3=None ):
+def dane(request, minutes, var1, var2=None, var3=None):
     possibleVariables = tags.copy()
     variables = [var1, var2, var3]
     variables = list(filter(None, variables))
 
     if any(elem in variables  for elem in tags):
+        start = time.time()
+        end = time.time()
+        print(end - start)
+
         time_threshold = timezone.now() - timedelta(minutes=minutes)
         latest_measurements_list = Measurements.objects.filter(timestamp__gt=time_threshold).order_by("-id").values('timestamp', *variables)
+        start = time.time()
         infoList = getInfoList(variables, latest_measurements_list)
-        
+
+        end = time.time()
+        print(end - start)
+
+        start = time.time()
+        divisor = math.ceil(minutes/10)
         toExecute1 = "[y1['"+ var1 +"'] for y1 in latest_measurements_list]"
         y1 = eval(toExecute1)
+        y1 = y1[::divisor]
+
         if len(variables) >= 2:
             toExecute2 = "[y2['"+ var2 +"'] for y2 in latest_measurements_list]"
             y2 = eval(toExecute2)
+            y2 = y2[::divisor]
         if len(variables) >= 3:
             toExecute3 = "[y3['"+ var3 +"'] for y3 in latest_measurements_list]"
             y3 = eval(toExecute3)
-        x = [x['timestamp'] for x in latest_measurements_list]
-        
-        if minutes > 60:
-            x = x[::10]
-            y1 = y1[::10]
-            y2 = y2[::10]
-            y3 = y3[::10]
-        elif minutes > 40:
-            x = x[::5]
-            y1 = y1[::5]
-            y2 = y2[::5]
-            y3 = y3[::5]
-        elif minutes > 20:
-            x = x[::2]
-            y1 = y1[::2]
-            y2 = y2[::2]
-            y3 = y3[::2]
+            y3 = y3[::divisor]
 
+        x = [x['timestamp'] for x in latest_measurements_list]
+        x = x[::divisor]
+        end = time.time()
+        print(end - start)
+
+        start = time.time()
         if len(variables) == 1:
             resultList = zip(x, y1)
             chart = get_plot(variables, x, y1)
         if len(variables) == 2:
-            resultList = zip(x, y1, y2,)
+            resultList = zip(x, y1, y2)
             chart = get_plot(variables, x, y1, y2)
         if len(variables) == 3:
             resultList = zip(x, y1, y2, y3)
             chart = get_plot(variables, x, y1, y2, y3)
+        end = time.time()
+        print(end - start)
 
-        returnDict = {
+        context = {
             'resultList': resultList, 
             'chart': chart, 
             'type': var1, 
@@ -76,17 +81,17 @@ def dane(request, minutes, var1, var2=None, var3=None ):
             'noOfVariables': len(variables),
             'variables': variables
         }
-        return render(request, "projekt/data.html", returnDict)
+        return render(request, "projekt/data.html", context)
     else:
         return HttpResponseNotFound("Page not found")
 
 def schemat(request):
     latest_measurements_list = Measurements.objects.latest('id')
-    returnDict = {
-        'latest_measurements_list': latest_measurements_list,
-        'temperaturePercent': ((40.0 - latest_measurements_list.Temperature)/ 25.0) * 100.0
+    context = {
+        'latest_measurements_list': latest_measurements_list,  
+        'temperaturePercent': ((40.0 - latest_measurements_list.Temperature)/ 25.0) * 100.0 
     }
-    return render(request, "projekt/schemat.html", returnDict)
+    return render(request, "projekt/schemat.html", context)
 
 @login_required(login_url='/login')
 @allowed_users(allowed_roles=['authenticated'])
@@ -97,13 +102,14 @@ def viewChange(request):
         for tag in tags:
             if tag in request.POST:
                 tagList.append(str(tag))
+        minutes = POSTValues['minutes']
 
         if len(tagList) == 1:
-            returnHtml = "/projekt/minutes/{}/data/{}".format(POSTValues['minutes'], tagList[0])
+            returnHtml = "/projekt/minutes/{}/data/{}".format(minutes, tagList[0])
         elif len(tagList) == 2:
-            returnHtml = "/projekt/minutes/{}/data/{}/{}".format(POSTValues['minutes'], tagList[0], tagList[1])
+            returnHtml = "/projekt/minutes/{}/data/{}/{}".format(minutes, tagList[0], tagList[1])
         elif len(tagList) == 3:
-            returnHtml = "/projekt/minutes/{}/data/{}/{}/{}".format(POSTValues['minutes'], tagList[0], tagList[1], tagList[2])
+            returnHtml = "/projekt/minutes/{}/data/{}/{}/{}".format(minutes, tagList[0], tagList[1], tagList[2])
         return redirect(returnHtml)
     else:
         return HttpResponseNotFound("Page not found") 
@@ -113,19 +119,16 @@ def viewChange(request):
 @allowed_users(allowed_roles=['authenticated'])
 def history(request, year=None, month=None, day=None):
     if(year ==None or month == None):
-        latest_measurements_list = Measurements.objects.filter(timestamp__gte = date.today())
-        return render(request, "projekt/history.html" )
+        return render(request, "projekt/history.html")
 
     elif day is not None:
         startdate = date(year, month, day)
         enddate = startdate + timedelta(days=1)
         latest_measurements_list = Measurements.objects.filter(timestamp__range=[startdate, enddate])
         if not latest_measurements_list:
-            return render(request, "projekt/history.html", {"noData": True} )    
+            context = {"noData": True}
+            return render(request, "projekt/history.html", context)    
     
-    #response = psg(request, latest_measurements_list)
-
-
         query="latest_measurements_list.values_list("
         for tag in tags:
             query+='"' +str(tag) + '",'
@@ -143,7 +146,7 @@ def history(request, year=None, month=None, day=None):
         enddate = date(year + math.floor((month+1)/12), (month+1)%12, 1)
         latest_measurements_list = Measurements.objects.filter(timestamp__range=[startdate, enddate])
         if not latest_measurements_list:
-            return render(request, "projekt/history.html", {"noData": True} )    
+            return render(request, "projekt/history.html", {"noData": True})    
 
         query="latest_measurements_list.values_list("
         for tag in tags:

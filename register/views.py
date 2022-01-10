@@ -35,7 +35,6 @@ def loginPage(request):
                 if nextPage is not None:
                     return redirect(nextPage)
                 else:
-                    print('ala ma kota')
                     return redirect('/projekt')
             else:
                 messages.info(request, 'Username OR password is incorrect')

@@ -33,7 +33,7 @@ def get_plot(variables, x, y, y2 = None, y3=None):
     label = params[variables[0]]
     type = label[0]['type']
     label = label[0]['label']
-    lns1 = ax.plot(x, y, '-bo', markersize=6, label=label )
+    lns1 = ax.plot(x, y, '-bo', markersize=6, label=label)
     lns = lns1
 
     ax.set_ylabel(label)

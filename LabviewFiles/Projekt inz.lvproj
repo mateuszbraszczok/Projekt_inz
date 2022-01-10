@@ -86,7 +86,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToProject</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{2DFC6FCE-FB46-4EBD-86C8-AEF0D63D5653}</Property>
-				<Property Name="Bld_version.build" Type="Int">16</Property>
+				<Property Name="Bld_version.build" Type="Int">17</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">TransferVariablesToDatabase.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../TransferVariablesToDatabase.exe</Property>
@@ -102,7 +102,7 @@
 				<Property Name="Exe_Vardep[1].LibItemID" Type="Ref">/My Computer/readedVariables.lvlib</Property>
 				<Property Name="Exe_VardepDeployAtStartup" Type="Bool">true</Property>
 				<Property Name="Exe_VardepLibItemCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{25D28E80-9205-4F8C-8B7B-143C0C659D34}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{E6058FFA-68B0-4B66-8E12-3C4CCD15DE52}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/transferSharedVariablesToDatabase.vi</Property>
