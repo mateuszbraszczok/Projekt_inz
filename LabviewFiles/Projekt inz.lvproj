@@ -130,7 +130,6 @@
 				<Property Name="TgtF_productName" Type="Str">Transfer Shared Variables to database</Property>
 				<Property Name="TgtF_targetfileGUID" Type="Str">{E5D82009-B96D-4038-B469-9A968139263E}</Property>
 				<Property Name="TgtF_targetfileName" Type="Str">TransferVariablesToDatabase.exe</Property>
-				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
 			</Item>
 		</Item>
 	</Item>
